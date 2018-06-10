@@ -5,7 +5,7 @@ import { withFirebase } from 'react-redux-firebase';
 
 const OdieListItem = ({ odie, firebase: { remove } }) => {
   const { key } = odie;
-  const { title } = odie.value;
+  const { title, subdomain } = odie.value;
 
   const removeOdie = (key) => {
 
@@ -20,8 +20,11 @@ const OdieListItem = ({ odie, firebase: { remove } }) => {
 
   return(
     <div className='list-rows-item grid-row padding-top-micro padding-bottom-micro align-items-center'>
-      <div className='grid-item'>
-        <span><Link className="link-underline" to={'/odies/edit/' + key}>{title}</Link></span>
+      <div className='grid-item item-s-3'>
+        <a className="link-underline" href={window.location.protocol + '//' + subdomain + '.' + window.location.host} target="_blank">{subdomain}</a>
+      </div>
+      <div className='grid-item item-s-0 item-m-auto'>
+        {title}
       </div>
       <div className='grid-item flex-grow grid-row no-gutter justify-end'>
         <div className='grid-item'>
