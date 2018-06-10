@@ -6,17 +6,18 @@ import { firebaseConnect, isLoaded, isEmpty, getVal } from 'react-redux-firebase
 import LoginForm from '../components/Login.jsx';
 import ControlPanel from '../components/ControlPanel.jsx';
 import NoMatch from '../components/NoMatch.jsx';
-import OdieView from '../components/OdieView.jsx';
+import RenderOdie from '../components/RenderOdie.jsx';
 
 const App = (props) => {
   const { auth } = props;
   const subdomain = window.location.hostname.split('.')[0];
 
   if (subdomain.length && subdomain !== 'localhost') {
+
     return (
       <div>
         <Switch>
-          <Route path='/' component={OdieView}/>
+          <Route path='/' render={(props) => <RenderOdie {...props} subdomain={subdomain} />}/>
           <Route component={NoMatch}/>
         </Switch>
       </div>
