@@ -28,9 +28,10 @@ const Odies = ({ odies }) => (
 
 export default compose(
   // Get noticia path from firebase based on params prop (route params from react-router)
-  firebaseConnect([
-    'odies',
-  ]),
+  firebaseConnect((props, store) => ([{
+    path: 'odies',
+    queryParams: ['orderByChild=uid', `equalTo=${store.getState().firebase.auth.uid}`]
+  }])),
   // Map state to props
   // firebase = state.firebase
   // ordered = state.firebase.ordered
