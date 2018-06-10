@@ -1,11 +1,9 @@
-# admin.andamiaje.co
-
-This project contains the source code of the Admin panel for Andamiaje.co
+# Odie
 
 ## Setup
 ```
-git clone git@github.com:interglobalvision/admin-andamiaje-co.git
-cd admin-andamiaje-co
+git clone git@github.com:interglobalvision/odie-us.git
+cd odie-us
 yarn
 ```
 
