@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { isLoaded, isEmpty } from 'react-redux-firebase';
 import axios from 'axios';
+import DocumentMeta from 'react-document-meta';
 
 class OdieView extends Component {
   constructor(props) {
@@ -39,8 +40,23 @@ class OdieView extends Component {
   }
 
   render() {
+    const odie = this.props.odie[Object.keys(this.props.odie)[0]]
+    const meta = {
+      title: odie.title,
+      description: odie.description,
+      meta: {
+        charset: 'utf-8',
+        name: {
+          'og:title': odie.title,
+          'og:description': odie.description,
+        }
+      }
+    };
+
     return (
-      <div className="container padding-top-basic padding-bottom-basic" dangerouslySetInnerHTML={{__html: this.state.contents}} />
+      <DocumentMeta {...meta}>
+        <div className="container padding-top-basic padding-bottom-basic" dangerouslySetInnerHTML={{__html: this.state.contents}} />
+      </DocumentMeta>
     )
 
   }
