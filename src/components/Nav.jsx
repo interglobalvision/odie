@@ -14,17 +14,15 @@ class Nav extends Component {
       <nav>
         <div className='grid-row justify-between'>
           <div className='grid-item item-s-3'>
+            <h1><Link to='/'>Odie</Link></h1>
           </div>
           <div className='grid-item item-flex'>
             <div className='grid-row'>
-              <div className='grid-item item-flex'>
-                <Link to='/posts'>Posts</Link>
+              <div className='grid-item'>
+                <Link to='/odies'>List</Link>
               </div>
               <div className='grid-item item-flex'>
-                <Link to='/catalogs'>Catalogs</Link>
-              </div>
-              <div className='grid-item item-flex'>
-                <button onClick={this.logOut.bind(this)}>Salir</button>
+                <button onClick={this.logOut.bind(this)}>Logout</button>
               </div>
             </div>
           </div>

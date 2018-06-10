@@ -6,9 +6,22 @@ import { firebaseConnect, isLoaded, isEmpty, getVal } from 'react-redux-firebase
 import LoginForm from '../components/Login.jsx';
 import ControlPanel from '../components/ControlPanel.jsx';
 import NoMatch from '../components/NoMatch.jsx';
+import OdieView from '../components/OdieView.jsx';
 
 const App = (props) => {
   const { auth } = props;
+  const subdomain = window.location.hostname.split('.')[0];
+
+  if (subdomain.length && subdomain !== 'localhost') {
+    return (
+      <div>
+        <Switch>
+          <Route path='/' component={OdieView}/>
+          <Route component={NoMatch}/>
+        </Switch>
+      </div>
+    )
+  }
 
   if (!isLoaded(auth)) {
     return (
@@ -19,6 +32,7 @@ const App = (props) => {
   }
 
   if (isEmpty(auth)) {
+
     return (
       <div>
         <Switch>

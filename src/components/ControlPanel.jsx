@@ -3,8 +3,11 @@ import { Switch, Route } from 'react-router-dom';
 
 import Nav from './Nav';
 import Welcome from './Welcome';
-import Posts from './Posts';
 import NoMatch from '../components/NoMatch.jsx';
+
+import Odies from '../containers/Odies';
+import AddOdie from '../containers/AddOdie';
+import UpdateOdie from '../containers/UpdateOdie';
 
 const ControlPanel = () => {
   return (
@@ -12,7 +15,9 @@ const ControlPanel = () => {
       <Nav />
       <div>
         <Switch>
-          <Route path='/posts' component={Posts} />
+          <Route exact path='/odies' component={Odies} />
+          <Route path='/odies/create' component={AddOdie} />
+          <Route path='/odies/edit/:key' component={UpdateOdie} />
           <Route exact path='/' component={Welcome} />
           <Route component={NoMatch}/>
         </Switch>
