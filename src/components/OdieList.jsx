@@ -11,6 +11,14 @@ const OdieList = ({ odies }) => {
   } else {
     return (
       <section className="margin-bottom-basic">
+        <header className='grid-row margin-bottom-tiny font-size-small font-bold'>
+          <div className='grid-item item-s-3'>
+            <h3>Subdomain</h3>
+          </div>
+          <div className='grid-item item-s-0 item-m-auto'>
+            <h3>Title</h3>
+          </div>
+        </header>
         <div className="list-rows-holder">
           { Object.keys(odies).map( // …else map thru noticias
             (key, id) => <OdieListItem key={key} id={id} odie={odies[key]} />
