@@ -12,11 +12,17 @@ const OdieList = ({ odies }) => {
     return (
       <section className="margin-bottom-basic">
         <header className='grid-row margin-bottom-tiny font-size-small font-bold'>
-          <div className='grid-item item-s-3'>
+          <div className='grid-item item-s-9 item-m-3'>
             <h3>Subdomain</h3>
           </div>
-          <div className='grid-item item-s-0 item-m-auto'>
+          <div className='grid-item item-s-0 item-m-5'>
             <h3>Title</h3>
+          </div>
+          <div className='grid-item item-s-0 item-m-2'>
+            <h3>Views</h3>
+          </div>
+          <div className='grid-item item-s-3 item-m-2'>
+            <h3>Options</h3>
           </div>
         </header>
         <div className="list-rows-holder">
