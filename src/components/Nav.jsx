@@ -19,7 +19,13 @@ class Nav extends Component {
           <div className='grid-item item-flex'>
             <div className='grid-row'>
               <div className='grid-item'>
-                <Link to='/odies'>List</Link>
+                <Link to='/'>Your Odies</Link>
+              </div>
+              <div className='grid-item'>
+                <Link to='/create'>Create</Link>
+              </div>
+              <div className='grid-item'>
+                <Link to='/account'>Account</Link>
               </div>
               <div className='grid-item item-flex'>
                 <button onClick={this.logOut.bind(this)}>Logout</button>
