@@ -52,6 +52,7 @@ class OdieForm extends Component {
         subdomain,
         docUrl,
         description,
+        views: 0,
         uid: this.props.currentUID,
       })
       .then(() => {
