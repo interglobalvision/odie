@@ -37,26 +37,32 @@ class LoginForm extends Component {
 
   render() {
     return (
-      <form onSubmit={event => event.preventDefault()}>
-        <input
-          ref={ ref => this.email = ref}
-          type='text'
-          placeholder='Email'
-          onChange={event => this.setState({ email: event.target.value })}
-        />
-        <input
-          ref={ ref => this.password = ref}
-          type='password'
-          placeholder='Password'
-          onChange={event => this.setState({ password: event.target.value })}
-        />
-        <button
-          onClick={() => this.login()}
-          type='submit'>
-          Iniciar Sesion
-        </button>
-        <p>{this.state.error.message}</p>
-        <p>{this.state.loading}</p>
+      <form onSubmit={event => event.preventDefault()} className='grid-row'>
+        <div className='grid-item item-s-12'>
+          <input
+            ref={ ref => this.email = ref}
+            type='text'
+            placeholder='email'
+            onChange={event => this.setState({ email: event.target.value })}
+          />
+        </div>
+        <div className='grid-item item-s-12'>
+          <input
+            ref={ ref => this.password = ref}
+            type='password'
+            placeholder='password'
+            onChange={event => this.setState({ password: event.target.value })}
+          />
+        </div>
+        <div className='grid-item item-s-4 offset-s-8 text-align-center'>
+          <a onClick={() => this.login()}>
+            Login
+          </a>
+        </div>
+        <div className='grid-item item-s-12'>
+          <p>{this.state.error.message}</p>
+          <p>{this.state.loading}</p>
+        </div>
       </form>
     )
   }
