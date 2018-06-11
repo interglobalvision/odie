@@ -1,14 +1,11 @@
 import React from 'react';
 import AsciiOdie from './AsciiOdie';
 import LoginForm from './Login';
+import WelcomeHeader from './WelcomeHeader';
 
 const Welcome = () => (
   <div className='container'>
-    <header className='grid-row'>
-      <div className='grid-item item-s-12 text-align-center padding-top-basic margin-bottom-large'>
-        Odie makes a webpage with the contents of a google doc
-      </div>
-    </header>
+    <WelcomeHeader />
     <div className='grid-row'>
       <div className='grid-item item-s-12 item-m-5 item-l-3'>
         <AsciiOdie />
