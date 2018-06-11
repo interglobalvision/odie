@@ -1,7 +1,7 @@
 import React from 'react';
 import { isLoaded, isEmpty } from 'react-redux-firebase';
 
-import OdieListItem from '../components/OdieListItem';
+import OdieListItem from './OdieListItem';
 
 const OdieList = ({ odies }) => {
   if (!isLoaded(odies)) { // If not loaded…
