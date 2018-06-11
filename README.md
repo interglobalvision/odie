@@ -23,8 +23,8 @@ Odie makes a webpage with the content of a published google doc and gives it an 
 
 ## Setup
 ```
-git clone git@github.com:interglobalvision/odie-us.git
-cd odie-us
+git clone git@github.com:interglobalvision/odie.git
+cd odie
 yarn
 ```
 
