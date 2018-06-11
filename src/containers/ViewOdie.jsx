@@ -5,7 +5,8 @@ import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
 
 import OdieView from '../components/OdieView.jsx';
 
-const ViewOdie = ({ odie }) => {
+const ViewOdie = ({ firebase, odie, dispatch }) => {
+
   if (!isLoaded(odie)) { // If not loaded…
     return 'Loading'; // …show 'loading'
   } else if (isEmpty(odie)) { // …else. If is empty…
@@ -13,7 +14,7 @@ const ViewOdie = ({ odie }) => {
   } else {
     return (
       <section>
-        <OdieView odie={odie} />
+        <OdieView odie={odie} dispatch={dispatch} />
       </section>
     );
   }
