@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { firebaseConnect, isLoaded, isEmpty, getVal } from 'react-redux-firebase';
 
 import Welcome from '../components/Welcome.jsx';
-import ControlPanel from '../components/ControlPanel.jsx';
+import Dashboard from '../components/Dashboard.jsx';
+import DashboardHeader from '../components/DashboardHeader.jsx';
 import NoMatch from '../components/NoMatch.jsx';
 import Footer from '../components/Footer.jsx';
 import ViewOdie from './ViewOdie.jsx';
@@ -50,8 +51,9 @@ const App = (props) => {
 
   return (
     <div>
+      <DashboardHeader />
       <Switch>
-        <Route path='/' component={ControlPanel} />
+        <Route path='/' component={Dashboard} />
         <Route component={NoMatch}/>
       </Switch>
       <Footer />
