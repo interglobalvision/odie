@@ -91,7 +91,7 @@ class OdieView extends Component {
         </div>
       )
     }
-    
+
     const odie = this.props.odie[Object.keys(this.props.odie)[0]]
     const meta = {
       title: odie.title,
@@ -104,6 +104,8 @@ class OdieView extends Component {
         }
       }
     };
+
+    document.body.style.backgroundColor = odie.bgColor;
 
     return (
       <DocumentMeta {...meta}>
