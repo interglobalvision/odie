@@ -92,7 +92,7 @@ class OdieForm extends Component {
       <div className='grid-row'>
         <form className='item-s-12 item-l-9' onSubmit={event => event.preventDefault()}>
 
-          <div className='grid-item item-s-12 margin-bottom-basic'>
+          <div className='grid-item item-s-12 margin-bottom-small'>
             <input
               id='subdomain'
               name='subdomain'
@@ -101,12 +101,15 @@ class OdieForm extends Component {
               disabled={this.state.isLoading}
               value={this.state.subdomain}
               onChange={ event => this.setState({ subdomain: event.target.value })}
+              className='margin-bottom-micro'
             />
-            <div className='font-size-small'>The web address for your Odie.</div>
-            <div className='font-size-small'>Allowed characters: A-Z, 0-9, and - (hyphen)</div>
+            <label for='subdomain' className='font-size-small'>
+              <div>The web address for your Odie.</div>
+              <div>Allowed characters: A-Z, 0-9, and - (hyphen)</div>
+            </label>
           </div>
 
-          <div className='grid-item item-s-12 margin-bottom-basic'>
+          <div className='grid-item item-s-12 margin-bottom-small'>
             <input
               id='docUrl'
               name='docUrl'
@@ -115,19 +118,22 @@ class OdieForm extends Component {
               disabled={this.state.isLoading}
               value={this.state.docUrl}
               onChange={ event => this.setState({ docUrl: event.target.value })}
+              className='margin-bottom-micro'
             />
-            <div className='font-size-small'>This is where we will pull the Odie content from.</div>
-            <ol className='font-size-small'>To retrieve this URL:
-              <li>Open your google doc</li>
-              <li>Click File > Publish to the web…</li>
-              <li>Click Publish in the following dialog</li>
-              <li>Copy the Link URL that is displayed</li>
-              <li>Come back here and paste it!</li>
-            </ol>
+            <label for='docUrl' className='font-size-small'>
+              <div className='margin-bottom-micro'>This is where we will pull the Odie content from.</div>
+              <ol>To retrieve this URL:
+                <li>Open your google doc</li>
+                <li>Click File > Publish to the web…</li>
+                <li>Click Publish in the following dialog</li>
+                <li>Copy the Link URL that is displayed</li>
+                <li>Come back here and paste it!</li>
+              </ol>
+            </label>
           </div>
 
           <div className='grid-row'>
-            <div className='grid-item item-s-12 margin-bottom-basic'>
+            <div className='grid-item item-s-12 margin-bottom-small'>
               <input
                 id='title'
                 name='title'
@@ -136,13 +142,17 @@ class OdieForm extends Component {
                 disabled={this.state.isLoading}
                 value={this.state.title}
                 onChange={ event => this.setState({ title: event.target.value })}
+                className='margin-bottom-micro'
               />
+              <label for='title' className='font-size-small'>
+                <div>Give it a name!</div>
+                <div>This will appear in the browser tab and on social media feeds.</div>
+              </label>
             </div>
 
 
 
-            <div className='grid-item item-s-12 margin-bottom-basic'>
-              <h4 className='font-size-small font-bold margin-bottom-tiny'><label htmlFor='description'>Description</label></h4>
+            <div className='grid-item item-s-12 margin-bottom-small'>
               <input
                 id='description'
                 name='description'
@@ -151,7 +161,12 @@ class OdieForm extends Component {
                 disabled={this.state.isLoading}
                 value={this.state.description}
                 onChange={ event => this.setState({ description: event.target.value })}
+                className='margin-bottom-micro'
               />
+              <label for='description' className='font-size-small'>
+                <div>1 or 2 sentences describing the content of this Odie.</div>
+                <div>This will appear on social media feeds</div>
+              </label>
             </div>
           </div>
 
