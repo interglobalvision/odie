@@ -2,6 +2,7 @@ import React from 'react';
 import AsciiOdie from './AsciiOdie';
 import LoginForm from './Login';
 import { Link } from 'react-router-dom';
+import TwitterWidget from './TwitterWidget';
 
 const Welcome = () => (
   <div className='container'>
@@ -21,6 +22,7 @@ const Welcome = () => (
         </div>
         <div className='grid-item item-s-12 item-m-6 item-xl-12'>
           <h3 className='margin-bottom-tiny'>Odie on Twitter</h3>
+          <TwitterWidget />
         </div>
       </div>
     </div>
