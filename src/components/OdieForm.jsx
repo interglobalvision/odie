@@ -5,6 +5,8 @@ import { withRouter } from 'react-router-dom';
 
 import { setIsLoading, setIsLoaded } from '../redux/actions/loadingStatusActions'
 
+import AsciiOdie from './AsciiOdie'
+
 const mapDispatchToProps = dispatch =>  ({
   setIsLoaded: () => dispatch(setIsLoaded()),
   setIsLoading: () => dispatch(setIsLoading()),
@@ -58,7 +60,7 @@ class OdieForm extends Component {
       .then(() => {
         this.setState({ isLoading: false })
         this.props.setIsLoaded();
-        this.props.history.push('/odies');
+        this.props.history.push('/');
       })
 
   }
@@ -87,51 +89,57 @@ class OdieForm extends Component {
   render() {
     console.log(this.props);
     return (
-      <div>
-        <header className='grid-row margin-bottom-basic'>
-          <div className='grid-item'>
-            <h1 className='font-size-large'>Edit Odie</h1>
-          </div>
-        </header>
+      <div className='grid-row'>
+        <form className='item-s-12 item-l-9' onSubmit={event => event.preventDefault()}>
 
-        <form onSubmit={event => event.preventDefault()}>
+          <div className='grid-item item-s-12 margin-bottom-basic'>
+            <input
+              id='subdomain'
+              name='subdomain'
+              type='text'
+              placeholder='subdomain'
+              disabled={this.state.isLoading}
+              value={this.state.subdomain}
+              onChange={ event => this.setState({ subdomain: event.target.value })}
+            />
+            <div className='font-size-small'>The web address for your Odie.</div>
+            <div className='font-size-small'>Allowed characters: A-Z, 0-9, and - (hyphen)</div>
+          </div>
+
+          <div className='grid-item item-s-12 margin-bottom-basic'>
+            <input
+              id='docUrl'
+              name='docUrl'
+              type='text'
+              placeholder='google doc url'
+              disabled={this.state.isLoading}
+              value={this.state.docUrl}
+              onChange={ event => this.setState({ docUrl: event.target.value })}
+            />
+            <div className='font-size-small'>This is where we will pull the Odie content from.</div>
+            <ol className='font-size-small'>To retrieve this URL:
+              <li>Open your google doc</li>
+              <li>Click File > Publish to the web…</li>
+              <li>Click Publish in the following dialog</li>
+              <li>Copy the Link URL that is displayed</li>
+              <li>Come back here and paste it!</li>
+            </ol>
+          </div>
 
           <div className='grid-row'>
             <div className='grid-item item-s-12 margin-bottom-basic'>
-              <h4 className='font-size-small font-bold margin-bottom-tiny'><label htmlFor='title'>Title</label></h4>
               <input
                 id='title'
                 name='title'
                 type='text'
+                placeholder='title'
                 disabled={this.state.isLoading}
                 value={this.state.title}
                 onChange={ event => this.setState({ title: event.target.value })}
               />
             </div>
 
-            <div className='grid-item item-s-12 margin-bottom-basic'>
-              <h4 className='font-size-small font-bold margin-bottom-tiny'><label htmlFor='subdomain'>Subdomain</label></h4>
-              <input
-                id='subdomain'
-                name='subdomain'
-                type='text'
-                disabled={this.state.isLoading}
-                value={this.state.subdomain}
-                onChange={ event => this.setState({ subdomain: event.target.value })}
-              />
-            </div>
 
-            <div className='grid-item item-s-12 margin-bottom-basic'>
-              <h4 className='font-size-small font-bold margin-bottom-tiny'><label htmlFor='docUrl'>google doc URL</label></h4>
-              <input
-                id='docUrl'
-                name='docUrl'
-                type='text'
-                disabled={this.state.isLoading}
-                value={this.state.docUrl}
-                onChange={ event => this.setState({ docUrl: event.target.value })}
-              />
-            </div>
 
             <div className='grid-item item-s-12 margin-bottom-basic'>
               <h4 className='font-size-small font-bold margin-bottom-tiny'><label htmlFor='description'>Description</label></h4>
@@ -139,6 +147,7 @@ class OdieForm extends Component {
                 id='description'
                 name='description'
                 type='text'
+                placeholder='brief description'
                 disabled={this.state.isLoading}
                 value={this.state.description}
                 onChange={ event => this.setState({ description: event.target.value })}
@@ -155,6 +164,8 @@ class OdieForm extends Component {
           </div>
 
         </form>
+
+        <AsciiOdie />
       </div>
     );
   }
