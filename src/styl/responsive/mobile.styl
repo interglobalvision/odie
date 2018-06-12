@@ -32,6 +32,11 @@ font-sizes($font-size-basic, false, $font-size-large, false, $font-size-small)
 .container
   max-width: 1280px
 
+#viewer
+  width: 95%
+  max-width: 1000px
+  margin: 0 auto
+
 .code-holder
   background: $color-grey-light
   border: $border-style
@@ -41,12 +46,14 @@ ol li
   margin-left: 1.5em
   list-style-type: decimal
 
-.button-link-style
+button
   appearance: none
   background: transparent
   border: none
-  text-decoration: underline
   cursor: pointer
+
+.button-link-style
+  text-decoration: underline
 
 input, textarea
   appearance: none
@@ -64,6 +71,9 @@ header.header
 
 .border-top
   border-top: $border-style
+
+.icon
+  height: 26px
 
 html, body
   height: 100%
