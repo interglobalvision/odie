@@ -4,13 +4,9 @@ import { connect } from 'react-redux';
 import { firebaseConnect, isLoaded, isEmpty, getVal } from 'react-redux-firebase';
 
 import Welcome from '../components/Welcome.jsx';
-<<<<<<< HEAD
+import WelcomeHeader from '../components/WelcomeHeader.jsx';
 import Dashboard from '../components/Dashboard.jsx';
 import DashboardHeader from '../components/DashboardHeader.jsx';
-=======
-import WelcomeHeader from '../components/WelcomeHeader.jsx';
-import ControlPanel from '../components/ControlPanel.jsx';
->>>>>>> master
 import NoMatch from '../components/NoMatch.jsx';
 import Footer from '../components/Footer.jsx';
 import ViewOdie from './ViewOdie.jsx';
