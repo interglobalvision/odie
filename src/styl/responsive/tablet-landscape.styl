@@ -2,4 +2,12 @@
 
   $gutter = 40px
 
-  grid-maker(95%, $gutter, l)
+  grid-maker(97%, $gutter, l)
+
+  .hide-portrait,
+  .hide-mobile.hide-portrait
+    display: initial
+
+  .hide-landscape,
+  .hide-mobile.hide-portrait.hide-landscape
+    display: none

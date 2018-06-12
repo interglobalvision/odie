@@ -1,11 +1,13 @@
 @media screen and (min-width: 1280px)
 
-  $gutter = 40px
+  $gutter = 36px
 
   $header-height = 174px
-  $footer-height = 98px
+  $footer-height = 68px
 
-  grid-maker(95%, $gutter, xl)
+  grid-maker(100%, $gutter, xl)
+
+  grid-maker(false, $gutter, xl-9, 9)
 
   #main-content
     min-height: calc('100vh - ' + ($header-height + $footer-height))
@@ -13,5 +15,6 @@
   #welcome-row
     justify-content: space-around
 
-  #footer-row
-    padding-top: $margin-basic
+  .hide-landscape,
+  .hide-mobile.hide-portrait.hide-landscape
+    display: initial

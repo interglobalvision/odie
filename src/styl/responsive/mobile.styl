@@ -37,6 +37,10 @@ font-sizes($font-size-basic, false, $font-size-large, false, $font-size-small)
   border: $border-style
   border-radius: $border-radius
 
+ol li
+  margin-left: 1.5em
+  list-style-type: decimal
+
 .button-link-style
   appearance: none
   background: transparent
@@ -46,15 +50,20 @@ font-sizes($font-size-basic, false, $font-size-large, false, $font-size-small)
 
 input, textarea
   appearance: none
-  width: 100%
+  width: 100% !important
+  height: auto !important
   background: transparent
   border: $border-style
   border-radius: $border-radius
   padding: $margin-micro ($margin-micro * 1.5)
   font-size: $font-size-mid
+  resize: none 
 
 header.header
   padding-bottom: $margin-basic
+
+.border-top
+  border-top: $border-style
 
 #main-content
   min-height: calc('100vh - ' + ($header-height + $footer-height))
@@ -78,3 +87,17 @@ input:focus + a#link-forgot-password
 
 #footer-row
   padding-top: $margin-mid
+
+#form-odie-subdomain
+  order: 1
+#form-odie-doc-url
+  order: 2
+#form-odie-title
+  order: 3
+#form-odie-bg-color
+  order: 4
+#form-odie-description
+  order: 5
+
+.hide-mobile
+  display: none
