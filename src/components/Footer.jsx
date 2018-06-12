@@ -2,11 +2,11 @@ import React from 'react';
 
 const Footer = () => (
   <footer className='container'>
-    <div className='footer-row grid-row'>
-      <div className='grid-item item-s-12 item-m-auto'>
+    <div id='footer-row' className='grid-row'>
+      <div className='footer-item grid-item item-s-12 item-m-auto padding-bottom-tiny'>
         Universal basic income NOW
       </div>
-      <div className='grid-item item-s-12 item-m-auto'>
+      <div className='footer-item grid-item item-s-12 item-m-auto padding-bottom-tiny'>
         Made by <a className='link-underline' href="http://interglobal.vision">interglobal.vision</a>
       </div>
     </div>
