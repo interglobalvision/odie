@@ -55,7 +55,7 @@ class LoginForm extends Component {
           />
         </div>
         <div className='grid-item item-s-4 offset-s-8 text-align-center no-gutter'>
-          <button onClick={() => this.login()}>
+          <button onClick={() => this.login()} className='font-size-large button-link-style'>
             Login
           </button>
         </div>

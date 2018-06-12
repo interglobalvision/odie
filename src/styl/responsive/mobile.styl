@@ -1,0 +1,60 @@
+$gutter = 10px
+
+$margin-micro = 10px
+$margin-tiny = 20px
+$margin-small = 30px
+$margin-basic = 60px
+$margin-mid = 80px
+$margin-large = 120px
+
+$font-size-small = 11px
+$font-size-basic = 14px
+$font-size-large = 18px
+
+$border-style = 1px solid $color-grey-mid
+$border-radius = 3px
+
+$header-height = 138px
+$footer-height = 156px
+
+grid-maker(95%, $gutter, s)
+
+space-maker($margin-micro, $margin-tiny, $margin-small, $margin-basic, $margin-mid, $margin-large)
+
+font-sizes($font-size-basic, false, $font-size-large, $font-size-mid)
+
+.font-size-ascii
+  font-size: 13px
+
+.container
+  max-width: 1280px
+
+.code-holder
+  background: $color-grey-light
+  border: $border-style
+  border-radius: $border-radius
+
+.button-link-style
+  appearance: none
+  background: transparent
+  border: none
+  text-decoration: underline
+  cursor: pointer
+
+input, textarea
+  appearance: none
+  width: 100%
+  background: transparent
+  border: $border-style
+  border-radius: $border-radius
+  padding: $margin-micro ($margin-micro * 1.5)
+  font-size: $font-size-mid
+
+header.header
+  padding-bottom: $margin-basic
+
+#main-content
+  min-height: calc('100vh - ' + ($header-height + $footer-height))
+
+#footer-row
+  padding-top: $margin-mid

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { firebaseConnect, isLoaded, isEmpty, getVal } from 'react-redux-firebase';
 
 import Welcome from '../components/Welcome.jsx';
+import WelcomeHeader from '../components/WelcomeHeader.jsx';
 import ControlPanel from '../components/ControlPanel.jsx';
 import NoMatch from '../components/NoMatch.jsx';
 import Footer from '../components/Footer.jsx';
@@ -21,7 +22,6 @@ const App = (props) => {
           <Route path='/' render={(props) => <ViewOdie {...props} subdomain={subdomain} />}/>
           <Route component={NoMatch}/>
         </Switch>
-        <Footer />
       </div>
     )
   }
@@ -38,11 +38,14 @@ const App = (props) => {
 
     return (
       <div>
-        <Switch>
-          <Route exact path='/' component={Welcome} />
-          <Route exact path='/login' component={Welcome} />
-          <Route component={NoMatch}/>
-        </Switch>
+        <WelcomeHeader />
+        <main id="main-content">
+          <Switch className='main-content'>
+            <Route exact path='/' component={Welcome} />
+            <Route exact path='/login' component={Welcome} />
+            <Route component={NoMatch}/>
+          </Switch>
+        </main>
         <Footer />
       </div>
     );
@@ -50,10 +53,12 @@ const App = (props) => {
 
   return (
     <div>
-      <Switch>
-        <Route path='/' component={ControlPanel} />
-        <Route component={NoMatch}/>
-      </Switch>
+      <main id="main-content">
+        <Switch>
+          <Route path='/' component={ControlPanel} />
+          <Route component={NoMatch}/>
+        </Switch>
+      </main>
       <Footer />
     </div>
   );

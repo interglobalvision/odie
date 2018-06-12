@@ -1,0 +1,23 @@
+@media screen and (min-width: 720px)
+  $gutter = 30px
+
+  $header-height = 174px
+  $footer-height = 68px
+
+  grid-maker( 95%, $gutter, m)
+
+  header.header
+    padding-bottom: $margin-large
+
+  #main-content
+    min-height: calc('100vh - ' + ($header-height + $footer-height))
+
+  #header-welcome
+    text-align: center
+
+  #welcome-row
+    justify-content: center
+
+  #footer-row
+    justify-content: space-between
+    padding-top: $margin-small
