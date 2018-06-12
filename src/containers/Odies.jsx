@@ -7,23 +7,7 @@ import { firebaseConnect } from 'react-redux-firebase';
 import OdieList from '../components/OdieList';
 
 const Odies = ({ odies }) => (
-  <section>
-
-    <header className='grid-row margin-bottom-basic'>
-      <div className='grid-item'>
-        <h1 className='font-size-large'>Your Odies</h1>
-      </div>
-    </header>
-
-    <div className='grid-row margin-bottom-basic justify-end'>
-      <div className='grid-item'>
-        <Link className='button' to='/odies/create'>Create Odie</Link>
-      </div>
-    </div>
-
-    <OdieList odies={odies} />
-
-  </section>
+  <OdieList odies={odies} />
 );
 
 export default compose(
