@@ -10,6 +10,7 @@ import DashboardHeader from '../components/DashboardHeader.jsx';
 import NoMatch from '../components/NoMatch.jsx';
 import Footer from '../components/Footer.jsx';
 import ViewOdie from './ViewOdie.jsx';
+import Loading from '../components/Loading.jsx';
 
 const App = (props) => {
   const { auth } = props;
@@ -28,11 +29,7 @@ const App = (props) => {
   }
 
   if (!isLoaded(auth)) {
-    return (
-      <div>
-        <span>Loading</span>
-      </div>
-    )
+    return <Loading />
   }
 
   if (isEmpty(auth)) {

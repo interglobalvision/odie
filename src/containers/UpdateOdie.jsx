@@ -4,11 +4,12 @@ import { connect } from 'react-redux';
 import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
 
 import OdieForm from '../components/OdieForm.jsx';
+import Loading from '../components/Loading.jsx';
 
 const UpdateOdie = ({ firebase, odie, id, dispatch, currentUID }) => {
 
   if (!isLoaded(odie)) { // If not loaded…
-    return 'Loading'; // …show 'loading'
+    return <Loading />; // …show 'loading'
   } else if (isEmpty(odie)) { // …else. If is empty…
     return 'Error'; // …show 'Error?'
   } else {

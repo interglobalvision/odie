@@ -7,7 +7,7 @@ import { ChromePicker } from 'react-color';
 import { setIsLoading, setIsLoaded } from '../redux/actions/loadingStatusActions'
 
 import AsciiOdie from './AsciiOdie'
-import Bone from './Bone'
+import DonationLink from './DonationLink'
 
 const mapDispatchToProps = dispatch =>  ({
   setIsLoaded: () => dispatch(setIsLoaded()),
@@ -236,7 +236,7 @@ class OdieForm extends Component {
               <AsciiOdie />
             </div>
           </div>
-          <Bone />
+          <DonationLink />
         </div>
       </section>
     );
