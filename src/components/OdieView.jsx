@@ -22,6 +22,7 @@ class OdieView extends Component {
 
     this.state = {
       contents: null,
+      error: false,
     }
 
     // Bind
@@ -43,6 +44,9 @@ class OdieView extends Component {
       mode: 'no-cors',
     }).then(this.handleResponse).catch(function (error) {
       console.error(error);
+      this.props.setIsLoaded();
+
+      this.setState({ error: true })
     });
   }
 
@@ -84,12 +88,8 @@ class OdieView extends Component {
   }
 
   render() {
-    if (this.state.contents == null) {
-      return (
-        <div>
-          404
-        </div>
-      )
+    if (this.state.error) {
+      return 'Error';
     }
 
     const odie = this.props.odie[Object.keys(this.props.odie)[0]]
@@ -109,7 +109,7 @@ class OdieView extends Component {
 
     return (
       <DocumentMeta {...meta}>
-        <div className="container padding-top-basic padding-bottom-basic" dangerouslySetInnerHTML={{__html: this.state.contents}} />
+        <div id='viewer' className='padding-top-basic padding-bottom-basic' dangerouslySetInnerHTML={{__html: this.state.contents}} />
       </DocumentMeta>
     )
 
