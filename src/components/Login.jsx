@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { firebaseConnect } from 'react-redux-firebase';
+import { Link } from 'react-router-dom';
 
 class LoginForm extends Component {
   state = {
@@ -53,9 +54,10 @@ class LoginForm extends Component {
             placeholder='password'
             onChange={event => this.setState({ password: event.target.value })}
           />
+          <Link id="link-forgot-password" className='font-size-small color-grey-mid link-underline' to={'/forgotpassword'}>Forgot?</Link>
         </div>
         <div className='grid-item item-s-4 offset-s-8 text-align-center no-gutter'>
-          <button onClick={() => this.login()}>
+          <button onClick={() => this.login()} className='font-size-large button-link-style'>
             Login
           </button>
         </div>
