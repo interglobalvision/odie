@@ -38,7 +38,7 @@ class LoginForm extends Component {
   render() {
     return (
       <form onSubmit={event => event.preventDefault()} className='grid-row margin-bottom-basic'>
-        <div className='grid-item item-s-12 margin-bottom-micro'>
+        <div className='grid-item item-s-12 margin-bottom-micro no-gutter'>
           <input
             ref={ ref => this.email = ref}
             type='text'
@@ -46,7 +46,7 @@ class LoginForm extends Component {
             onChange={event => this.setState({ email: event.target.value })}
           />
         </div>
-        <div className='grid-item item-s-12 margin-bottom-tiny'>
+        <div className='grid-item item-s-12 margin-bottom-tiny no-gutter'>
           <input
             ref={ ref => this.password = ref}
             type='password'
@@ -54,12 +54,12 @@ class LoginForm extends Component {
             onChange={event => this.setState({ password: event.target.value })}
           />
         </div>
-        <div className='grid-item item-s-4 offset-s-8 text-align-center'>
+        <div className='grid-item item-s-4 offset-s-8 text-align-center no-gutter'>
           <a onClick={() => this.login()}>
             Login
           </a>
         </div>
-        <div className='grid-item item-s-12'>
+        <div className='grid-item item-s-12 no-gutter'>
           <p>{this.state.error.message}</p>
           <p>{this.state.loading}</p>
         </div>

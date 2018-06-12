@@ -10,7 +10,7 @@ const Welcome = () => (
       <div className='grid-item item-s-12 item-m-5 item-l-3'>
         <AsciiOdie />
       </div>
-      <div className='grid-item item-s-12 item-m-5 item-l-3 no-gutter grid-row align-content-start padding-top-small'>
+      <div className='grid-item item-s-12 item-m-5 item-l-3 grid-row align-content-start padding-top-small'>
         <h3 className="margin-bottom-tiny">Login to view, create, & edit your Odie’s</h3>
         <LoginForm />
         <div className="margin-bottom-basic">Want to make an Odie? Create an account!</div>
