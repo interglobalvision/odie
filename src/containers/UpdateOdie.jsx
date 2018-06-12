@@ -13,9 +13,7 @@ const UpdateOdie = ({ firebase, odie, id, dispatch, currentUID }) => {
     return 'Error'; // …show 'Error?'
   } else {
     return (
-      <section>
-        <OdieForm id={id} odie={odie} dispatch={dispatch} currentUID={currentUID} />
-      </section>
+      <OdieForm id={id} odie={odie} dispatch={dispatch} currentUID={currentUID} />
     );
   }
 };

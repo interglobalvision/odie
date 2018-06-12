@@ -7,9 +7,7 @@ import OdieForm from '../components/OdieForm.jsx';
 
 const AddOdie = ({ firebase, dispatch, currentUID }) => {
   return (
-    <section>
-      <OdieForm dispatch={dispatch} currentUID={currentUID} />
-    </section>
+    <OdieForm dispatch={dispatch} currentUID={currentUID} />
   );
 };
 

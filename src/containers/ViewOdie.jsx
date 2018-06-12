@@ -13,9 +13,7 @@ const ViewOdie = ({ firebase, odie, dispatch }) => {
     return '404'; // …show 'Error?'
   } else {
     return (
-      <section>
-        <OdieView odie={odie} dispatch={dispatch} />
-      </section>
+      <OdieView odie={odie} dispatch={dispatch} />
     );
   }
 };
