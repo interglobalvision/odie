@@ -31,7 +31,7 @@ const OdieListItem = ({ odie, firebase: { remove } }) => {
       </div>
       <div className='grid-item item-s-3 item-m-2 grid-row no-gutter'>
         <div className='grid-item'>
-          <Link className='font-bold' to={'/odies/edit/' + key}>Edit</Link>
+          <Link className='font-bold' to={'/edit/' + key}>Edit</Link>
         </div>
         <div className='grid-item'>
           <button className='u-pointer font-bold' onClick={() => removeOdie(key)}>Delete</button>
