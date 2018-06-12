@@ -49,7 +49,7 @@ class OdieForm extends Component {
   }
 
   addOdie() {
-    const { title, subdomain, docUrl, description } = this.state;
+    const { title, subdomain, docUrl, description, bgColor } = this.state;
 
     this.setState({ isLoading: true })
     this.props.setIsLoading();
@@ -60,6 +60,7 @@ class OdieForm extends Component {
         subdomain,
         docUrl,
         description,
+        bgColor,
         views: 0,
         uid: this.props.currentUID,
       })
@@ -72,7 +73,7 @@ class OdieForm extends Component {
   }
 
   updateOdie() {
-    const { title, subdomain, docUrl, description } = this.state;
+    const { title, subdomain, docUrl, description, bgColor } = this.state;
 
     this.setState({ isLoading: true })
     this.props.setIsLoading();
@@ -83,6 +84,7 @@ class OdieForm extends Component {
         subdomain,
         docUrl,
         description,
+        bgColor,
         uid: this.props.currentUID,
       })
       .then(() => {
@@ -109,7 +111,7 @@ class OdieForm extends Component {
     const headerText = this.props.match.path === '/create' ? 'Create a new Odie' : 'Edit your Odie';
 
     return (
-      <div className='grid-row'>
+      <section className='grid-row'>
         <header className='grid-item item-s-12 margin-bottom-tiny'>
           <h2>{headerText}</h2>
         </header>
@@ -233,7 +235,7 @@ class OdieForm extends Component {
             </div>
           </div>
         </div>
-      </div>
+      </section>
     );
   }
 };
