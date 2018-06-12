@@ -55,9 +55,9 @@ class LoginForm extends Component {
           />
         </div>
         <div className='grid-item item-s-4 offset-s-8 text-align-center no-gutter'>
-          <a onClick={() => this.login()}>
+          <button onClick={() => this.login()}>
             Login
-          </a>
+          </button>
         </div>
         <div className='grid-item item-s-12 no-gutter'>
           <p>{this.state.error.message}</p>
