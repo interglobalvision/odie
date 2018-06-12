@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import OdieListItem from './OdieListItem';
 import AsciiOdie from './AsciiOdie';
+import Bone from './Bone'
 
 const OdieList = ({ odies }) => {
   if (!isLoaded(odies)) { // If not loaded…
@@ -12,7 +13,7 @@ const OdieList = ({ odies }) => {
     return (
       <section className='grid-row'>
         <header className='grid-item item-s-12 item-xl-9 margin-bottom-tiny no-gutter grid-row'>
-          <div className='grid-item item-s-9 item-m-4 item-xl-9-3'>
+          <div className='grid-item item-s-8 item-m-4 item-xl-9-3'>
             <h3>Subdomain</h3>
           </div>
           <div className='grid-item hide-mobile item-m-4 item-xl-9-3'>
@@ -21,7 +22,7 @@ const OdieList = ({ odies }) => {
           <div className='grid-item hide-mobile item-m-1 item-xl-9-1'>
             <h3>Views</h3>
           </div>
-          <div className='grid-item item-s-3 item-m-3 item-xl-9-2'>
+          <div className='grid-item item-s-4 item-m-3 item-xl-9-2'>
             <h3>Options</h3>
           </div>
         </header>
@@ -46,6 +47,7 @@ const OdieList = ({ odies }) => {
               <AsciiOdie />
             </div>
           </div>
+          <Bone />
         </div>
       </section>
     );
