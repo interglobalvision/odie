@@ -21,10 +21,13 @@ grid-maker(95%, $gutter, s)
 
 space-maker($margin-micro, $margin-tiny, $margin-small, $margin-basic, $margin-mid, $margin-large)
 
-font-sizes($font-size-basic, false, $font-size-large, $font-size-mid)
+font-sizes($font-size-basic, false, $font-size-large, false, $font-size-small)
 
 .font-size-ascii
   font-size: 13px
+
+.color-grey-mid
+  color: $color-grey-mid
 
 .container
   max-width: 1280px
@@ -55,6 +58,14 @@ header.header
 
 #main-content
   min-height: calc('100vh - ' + ($header-height + $footer-height))
+
+#link-forgot-password
+  position: absolute
+  top: $margin-micro
+  right: $margin-micro * 1.5
+
+input:focus + a#link-forgot-password
+  display: none
 
 #footer-row
   padding-top: $margin-mid
