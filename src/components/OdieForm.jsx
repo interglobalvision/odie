@@ -7,6 +7,7 @@ import { ChromePicker } from 'react-color';
 import { setIsLoading, setIsLoaded } from '../redux/actions/loadingStatusActions'
 
 import AsciiOdie from './AsciiOdie'
+import Bone from './Bone'
 
 const mapDispatchToProps = dispatch =>  ({
   setIsLoaded: () => dispatch(setIsLoaded()),
@@ -90,6 +91,7 @@ class OdieForm extends Component {
       .then(() => {
         this.setState({ isLoading: false })
         this.props.setIsLoaded();
+        this.props.history.push('/');
       })
 
   }
@@ -228,12 +230,13 @@ class OdieForm extends Component {
 
         </form>
 
-        <div className='grid-item item-xl-3 text-align-center align-self-start'>
-          <div className='hide-mobile hide-portrait hide-landscape'>
+        <div className='grid-item item-s-12 item-xl-3 align-self-start'>
+          <div className='hide-mobile hide-portrait hide-landscape text-align-center'>
             <div className='code-holder padding-top-small padding-bottom-small'>
               <AsciiOdie />
             </div>
           </div>
+          <Bone />
         </div>
       </section>
     );
