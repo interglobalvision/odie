@@ -57,7 +57,7 @@ input, textarea
   border-radius: $border-radius
   padding: $margin-micro ($margin-micro * 1.5)
   font-size: $font-size-mid
-  resize: none 
+  resize: none
 
 header.header
   padding-bottom: $margin-basic
@@ -98,6 +98,21 @@ input:focus + a#link-forgot-password
   order: 4
 #form-odie-description
   order: 5
+
+.colorPickerHolder
+  position: absolute
+  left: 10%
+  top: -50%
+  z-index: 100
+  input
+    padding: 1em 0
+
+.colorPickerCover
+  position: fixed
+  top: 0px
+  right: 0px
+  bottom: 0px
+  left: 0px
 
 .hide-mobile
   display: none

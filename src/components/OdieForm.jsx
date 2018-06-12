@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { firebaseConnect } from 'react-redux-firebase';
 import { withRouter } from 'react-router-dom';
+import { ChromePicker } from 'react-color';
 
 import { setIsLoading, setIsLoaded } from '../redux/actions/loadingStatusActions'
 
@@ -23,6 +24,8 @@ class OdieForm extends Component {
     subdomain: '',
     docUrl: '',
     description: '',
+    displayColorPicker: false,
+    bgColor: '',
     error: {
       message: '',
     },
@@ -36,6 +39,9 @@ class OdieForm extends Component {
     this.state = { ...this.state, ...props.odie };
 
     // Bind
+    this.handleColorClick = this.handleColorClick.bind(this);
+    this.handleColorClose = this.handleColorClose.bind(this);
+    this.handleColorChange = this.handleColorChange.bind(this);
   }
 
   componentWillMount() {
@@ -84,6 +90,19 @@ class OdieForm extends Component {
         this.props.setIsLoaded();
       })
 
+  }
+
+  handleColorClick() {
+    this.setState({ displayColorPicker: !this.state.displayColorPicker })
+  }
+
+  handleColorClose() {
+    this.setState({ displayColorPicker: false })
+  }
+
+  handleColorChange(color) {
+    console.log(color)
+    this.setState({ bgColor: color.hex })
   }
 
   render() {
@@ -162,16 +181,21 @@ class OdieForm extends Component {
               <input
                 id='bg-color'
                 name='bg-color'
-                type='text'
                 placeholder='#FFFFFF'
                 disabled={this.state.isLoading}
-                value={this.state.subdomain}
-                onChange={ event => this.setState({ subdomain: event.target.value })}
+                value={this.state.bgColor}
                 className='margin-bottom-micro'
+                onClick={ this.handleColorClick }
               />
-              <label htmlFor='bg-color' className='font-size-small'>
+              <label className='font-size-small' onClick={ this.handleColorClick }>
                 <div>Choose a background color</div>
               </label>
+              { this.state.displayColorPicker ?
+                <div className='colorPickerHolder'>
+                  <div className='colorPickerCover' onClick={ this.handleColorClose }/>
+                  <ChromePicker color={ this.state.bgColor } disableAlpha={ true } onChange={ this.handleColorChange } />
+                </div>
+              : null }
             </div>
 
             <div id="form-odie-description" className='grid-item item-s-12 item-m-5 item-xl-9-4 margin-bottom-small'>
