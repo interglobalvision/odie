@@ -3,9 +3,10 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { firebaseConnect, isLoaded, isEmpty, getVal } from 'react-redux-firebase';
 
-import LoginForm from '../components/Login.jsx';
+import Welcome from '../components/Welcome.jsx';
 import ControlPanel from '../components/ControlPanel.jsx';
 import NoMatch from '../components/NoMatch.jsx';
+import Footer from '../components/Footer.jsx';
 import ViewOdie from './ViewOdie.jsx';
 
 const App = (props) => {
@@ -20,6 +21,7 @@ const App = (props) => {
           <Route path='/' render={(props) => <ViewOdie {...props} subdomain={subdomain} />}/>
           <Route component={NoMatch}/>
         </Switch>
+        <Footer />
       </div>
     )
   }
@@ -37,10 +39,11 @@ const App = (props) => {
     return (
       <div>
         <Switch>
-          <Route exact path='/' component={LoginForm} />
-          <Route exact path='/login' component={LoginForm} />
+          <Route exact path='/' component={Welcome} />
+          <Route exact path='/login' component={Welcome} />
           <Route component={NoMatch}/>
         </Switch>
+        <Footer />
       </div>
     );
   }
@@ -51,6 +54,7 @@ const App = (props) => {
         <Route path='/' component={ControlPanel} />
         <Route component={NoMatch}/>
       </Switch>
+      <Footer />
     </div>
   );
 };

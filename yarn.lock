@@ -3611,8 +3611,8 @@ globby@^6.1.0:
     pinkie-promise "^2.0.0"
 
 globie-styl-library@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/globie-styl-library/-/globie-styl-library-1.0.0.tgz#e58bb37c7dd14e31ceab91da6df77e7b7acedda0"
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/globie-styl-library/-/globie-styl-library-1.0.2.tgz#c2fd212a712908dd45acd8967dd6ae525e7e16d2"
 
 globule@^1.0.0:
   version "1.2.1"
