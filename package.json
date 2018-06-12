@@ -9,6 +9,7 @@
     "globie-styl-library": "^1.0.2",
     "kouto-swiss": "^1.1.0",
     "react": "^16.2.0",
+    "react-color": "^2.14.1",
     "react-document-meta": "^3.0.0-beta.2",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
