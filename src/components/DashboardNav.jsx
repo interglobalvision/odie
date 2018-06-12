@@ -13,13 +13,13 @@ class DashboardNav extends Component {
     return (
       <nav className='grid-item item-flex grid-row'>
         <div className='grid-item'>
-          <Link to='/'>Your Odies</Link>
+          <Link to='/' className='link-underline'>Your Odies</Link>
         </div>
         <div className='grid-item'>
-          <Link to='/create'>Create</Link>
+          <Link to='/create' className='link-underline'>Create</Link>
         </div>
         <div className='grid-item'>
-          <Link to='/account'>Account</Link>
+          <Link to='/account' className='link-underline'>Account</Link>
         </div>
         <div className='grid-item item-flex'>
           <button className='button-link-style' onClick={this.logOut.bind(this)}>Logout</button>
