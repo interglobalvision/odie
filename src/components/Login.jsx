@@ -37,8 +37,8 @@ class LoginForm extends Component {
 
   render() {
     return (
-      <form onSubmit={event => event.preventDefault()} className='grid-row'>
-        <div className='grid-item item-s-12'>
+      <form onSubmit={event => event.preventDefault()} className='grid-row margin-bottom-basic'>
+        <div className='grid-item item-s-12 margin-bottom-micro'>
           <input
             ref={ ref => this.email = ref}
             type='text'
@@ -46,7 +46,7 @@ class LoginForm extends Component {
             onChange={event => this.setState({ email: event.target.value })}
           />
         </div>
-        <div className='grid-item item-s-12'>
+        <div className='grid-item item-s-12 margin-bottom-tiny'>
           <input
             ref={ ref => this.password = ref}
             type='password'
