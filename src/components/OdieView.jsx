@@ -105,7 +105,7 @@ class OdieView extends Component {
       }
     };
 
-    document.body.style.backgroundColor = odie.bgColor;
+    document.documentElement.style.backgroundColor = odie.bgColor;
 
     return (
       <DocumentMeta {...meta}>
