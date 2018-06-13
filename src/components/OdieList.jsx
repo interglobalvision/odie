@@ -23,7 +23,7 @@ const OdieList = ({ odies }) => {
           <h3>Options</h3>
         </div>
       </header>
-      <div className="grid-item item-s-12 item-xl-9 no-gutter">
+      <div className="grid-item item-s-12 item-xl-9 no-gutter margin-bottom-small">
         <div className='grid-row'>
           <div className='grid-item item-s-12'>
             <div className='border-top'></div>
