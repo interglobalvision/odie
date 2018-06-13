@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { firebaseConnect } from 'react-redux-firebase';
 import { Link } from 'react-router-dom';
 
-class LoginForm extends Component {
+export class LoginForm extends Component {
   state = {
     email: '',
     username: '',
