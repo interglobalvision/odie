@@ -21,13 +21,13 @@ describe('Footer', () => {
    **/
   it('renders "Universal basic income NOW"', () => {
     const wrapper = shallow(<Footer />);
-    const textHeader = <p>Universal basic income NOW</p>;
+    const textHeader = <span>Universal basic income NOW</span>;
     expect(wrapper.contains(textHeader)).toEqual(true);
   });
 
   it('renders "Made by interglobal.vison"', () => {
     const wrapper = shallow(<Footer />);
-    const textHeader = <p>Made by <a className='link-underline' href="http://interglobal.vision">interglobal.vision</a></p>;
+    const textHeader = <span>Made by <a className='link-underline' href="http://interglobal.vision">interglobal.vision</a></span>;
     expect(wrapper.contains(textHeader)).toEqual(true);
   });
 })
