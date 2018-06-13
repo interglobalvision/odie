@@ -156,14 +156,14 @@ class OdieForm extends Component {
     const parser = document.createElement('a');
     parser.href = docUrl;
 
-    // split path into parts
-    const pathArray = parser.pathname.split("/");
+    // split path into array of parts
+    const pathParts = parser.pathname.split("/");
 
     const isValid =
       parser.protocol === 'https:' &&
       parser.hostname === 'docs.google.com' &&
-      pathArray[1] === 'document' &&
-      pathArray[5] === 'pub';
+      pathParts[1] === 'document' &&
+      pathParts[5] === 'pub';
 
     return isValid;
   }
