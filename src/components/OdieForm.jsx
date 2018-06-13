@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { ChromePicker } from 'react-color';
 
 import { setIsLoading, setIsLoaded } from '../redux/actions/loadingStatusActions'
+import { escapeHtml, unescapeHtml } from '../utilities/validation';
 
 import AsciiOdie from './AsciiOdie'
 import DonationLink from './DonationLink'
@@ -46,8 +47,6 @@ class OdieForm extends Component {
     this.handleDocUrlChange = this.handleDocUrlChange.bind(this);
     this.validateDocUrl = this.validateDocUrl.bind(this);
 
-    this.escapeHtml = this.escapeHtml.bind(this);
-
     this.handleColorClick = this.handleColorClick.bind(this);
     this.handleColorClose = this.handleColorClose.bind(this);
     this.handleColorChange = this.handleColorChange.bind(this);
@@ -57,9 +56,11 @@ class OdieForm extends Component {
     const escapedTitle = this.state.title;
     const escapedDescription = this.state.description;
 
+    console.log(escapedDescription);
+
     this.setState({
-      title: this.unescapeHtml(escapedTitle),
-      description: this.unescapeHtml(escapedDescription),
+      title: unescapeHtml(escapedTitle),
+      description: unescapeHtml(escapedDescription),
     })
   }
 
@@ -70,8 +71,8 @@ class OdieForm extends Component {
     this.setState({ isLoading: true })
     this.props.setIsLoading();
 
-    title = this.escapeHtml(title);
-    description = this.escapeHtml(description);
+    title = escapeHtml(title);
+    description = escapeHtml(description);
 
     this.props.firebase
       .push('odies', {
@@ -98,8 +99,8 @@ class OdieForm extends Component {
     this.setState({ isLoading: true })
     this.props.setIsLoading();
 
-    title = this.escapeHtml(title);
-    description = this.escapeHtml(description);
+    title = escapeHtml(title);
+    description = escapeHtml(description);
 
     if (subdomainValid && docUrlValid) {
       this.setState({ isValid: true });
@@ -165,28 +166,6 @@ class OdieForm extends Component {
       pathArray[5] === 'pub';
 
     return isValid;
-  }
-
-  escapeHtml(unescaped) {
-    const escaped = unescaped
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#039;');
-
-    return escaped;
-  }
-
-  unescapeHtml(escaped) {
-    const unescaped = escaped
-      .replace('&amp;', '&')
-      .replace('&lt;', '<')
-      .replace('&gt;', '>')
-      .replace('&quot;', '"')
-      .replace('&#039;', '\'');
-
-    return unescaped;
   }
 
   handleColorClick() {
