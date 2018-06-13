@@ -1,15 +1,13 @@
 # Testing
 
-In this document I will compile all my notes and research about testing. Everytime I try to implement this feature I get obfuscated by the excess of information.
+# 🚧 🚧 🚧 THIS DOCUMENT IS UNDER CONSTRUCTION 🚧 🚧 🚧
 
-## Packages
-
-- enzyme
-- react-addons-test-utils
+Disclaimner: In this document I will compile all my notes and research about testing. Everytime I try to implement this feature I get obfuscated by the excess of information. – @mixcas
 
 ## Links
 
 - [Create react app testing docs](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#running-tests)
+- [Unit testing your React application with Jest and Enzyme](https://medium.com/wehkamp-techblog/unit-testing-your-react-application-with-jest-and-enzyme-81c5545cee45)
 
 
 ## Unit testing
@@ -30,3 +28,24 @@ Another way to look at unit testing is that you write the tests first. This is k
 
 [https://stackoverflow.com/questions/1383/what-is-unit-testing
 ](What is unit testing?)
+
+### Jest
+
+Jest is used bascally to manage the testing and make the assertions. For example, checking for:
+
+- Comparing values
+- If Promise is resolved or rejected
+- If a function was called (via spies) and how many times
+- If an element has a certain property or contains a certain elemnt.
+
+[https://facebook.github.io/jest/docs/en/expect.html](https://facebook.github.io/jest/docs/en/expect.html)
+
+### Enzyme
+
+Enzyme is used to perfomr diferent actions like:
+
+- Find elements
+- Simulate clicks
+- Call methods
+ 
+[http://airbnb.io/enzyme/docs/api/](http://airbnb.io/enzyme/docs/api/)
