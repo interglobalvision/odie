@@ -17,6 +17,12 @@ $border-radius = 3px
 $header-height = 163px
 $footer-height = 156px
 
+$color-error = rgba(240, 0, 0, 1)
+$color-error-light = rgba(240, 151, 151, 1)
+
+$color-tooltip-default = rgba(151, 151, 151, .7)
+$color-tooltip-error = rgba(240, 0, 0, .7)
+
 grid-maker(95%, $gutter, s)
 
 space-maker($margin-micro, $margin-tiny, $margin-small, $margin-basic, $margin-mid, $margin-large)
@@ -65,6 +71,10 @@ input, textarea
   padding: $margin-micro ($margin-micro * 1.5)
   font-size: $font-size-mid
   resize: none
+  &.input-valid-false
+    border-color: $color-error
+    &:focus
+      outline-color: $color-error-light
 
 header.header
   padding-bottom: $margin-basic
@@ -142,3 +152,37 @@ input:focus + a#link-forgot-password
 
 .hide-mobile
   display: none
+
+.tooltip-holder
+  width: 100%
+  position: absolute
+  top: calc('-1em - ' + $margin-tiny)
+  left: 0
+
+.tooltip
+  padding: ($margin-micro * .5) $margin-micro
+  background-color: $color-tooltip-default
+  color: $color-black
+  border-radius: $border-radius
+  span:before
+    content:''
+    display:block
+    width:0
+    height:0
+    position:absolute
+    border: $margin-micro solid
+    border-color: transparent
+    border-top-color: $color-tooltip-default
+    left: $margin-micro
+    right: $margin-micro
+    margin: 0 auto
+    bottom:-($margin-tiny)
+
+.tooltip-error
+  background-color: $color-tooltip-error
+  color: $color-white
+  span:before
+    border-top-color: $color-tooltip-error
+
+.color-error
+  color: $color-error
