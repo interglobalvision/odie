@@ -167,22 +167,26 @@ class OdieForm extends Component {
     return isValid;
   }
 
-  escapeHtml(unsafe) {
-    return unsafe
+  escapeHtml(unescaped) {
+    const escaped = unescaped
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;')
       .replace(/'/g, '&#039;');
+
+    return escaped;
   }
 
-  unescapeHtml(safe) {
-    return safe
+  unescapeHtml(escaped) {
+    const unescaped = escaped
       .replace('&amp;', '&')
       .replace('&lt;', '<')
       .replace('&gt;', '>')
       .replace('&quot;', '"')
       .replace('&#039;', '\'');
+
+    return unescaped;
   }
 
   handleColorClick() {
