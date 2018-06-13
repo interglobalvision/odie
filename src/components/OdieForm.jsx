@@ -187,10 +187,14 @@ class OdieForm extends Component {
                 placeholder='#FFFFFF'
                 disabled={this.state.isLoading}
                 value={this.state.bgColor}
-                className='margin-bottom-micro font-uppercase'
+                className='margin-bottom-micro font-uppercase hide-input-caret'
                 onClick={ this.handleColorClick }
               />
-              <div className="color-input-swatch" style={{backgroundColor: this.state.bgColor}}></div>
+              <div
+                className="color-input-swatch"
+                style={{backgroundColor: this.state.bgColor}}
+                onClick={ this.handleColorClick }
+              ></div>
               <label className='font-size-small' onClick={ this.handleColorClick }>
                 <div>Choose a background color</div>
               </label>
