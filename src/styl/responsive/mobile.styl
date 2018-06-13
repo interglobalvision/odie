@@ -35,13 +35,11 @@ font-sizes($font-size-basic, false, $font-size-large, false, $font-size-small)
 .color-grey-mid
   color: $color-grey-mid
 
-.container
-  max-width: 1280px
+.color-error
+  color: $color-error
 
-#viewer
-  width: 95%
-  max-width: 1000px
-  margin: 0 auto
+.hide-mobile
+  display: none
 
 .code-holder
   background: $color-grey-light
@@ -51,6 +49,25 @@ font-sizes($font-size-basic, false, $font-size-large, false, $font-size-small)
 ol li
   margin-left: 1.5em
   list-style-type: decimal
+
+.border-top
+  border-top: $border-style
+
+.icon
+  height: 26px
+
+html, body
+  height: 100%
+
+#main-content
+  min-height: calc('100vh - ' + ($header-height + $footer-height))
+
+.container
+  max-width: 1280px
+
+// ******************************************************
+
+// FORMS
 
 button
   appearance: none
@@ -76,28 +93,36 @@ input, textarea
     &:focus
       outline-color: $color-error-light
 
+.hide-input-caret
+  color: transparent
+  text-shadow: 0 0 0 $color-black
+
+// ******************************************************
+
+// HEADER
+
 header.header
   padding-bottom: $margin-basic
 
-.border-top
-  border-top: $border-style
+// ******************************************************
 
-.icon
-  height: 26px
+// FOOTER
 
-html, body
-  height: 100%
+#footer-row
+  padding-top: $margin-mid
 
-#main-content
-  min-height: calc('100vh - ' + ($header-height + $footer-height))
+// ******************************************************
 
-#link-forgot-password
-  position: absolute
-  top: $margin-micro
-  right: $margin-micro * 1.5
+// ODIE VIEWER
 
-input:focus + a#link-forgot-password
-  display: none
+#viewer
+  width: 95%
+  max-width: 1000px
+  margin: 0 auto
+
+// ******************************************************
+
+// WELCOME
 
 #twitter-widget-holder
   display: block
@@ -108,8 +133,21 @@ input:focus + a#link-forgot-password
     #twitter-handle
       text-decoration: underline
 
-#footer-row
-  padding-top: $margin-mid
+// ******************************************************
+
+// LOGIN
+
+#link-forgot-password
+  position: absolute
+  top: $margin-micro
+  right: $margin-micro * 1.5
+
+input:focus + a#link-forgot-password
+  display: none
+
+// ******************************************************
+
+// ODIE FORM
 
 #form-odie-subdomain
   order: 1
@@ -121,6 +159,10 @@ input:focus + a#link-forgot-password
   order: 4
 #form-odie-description
   order: 5
+
+// ******************************************************
+
+// COLORPICKER
 
 .colorPickerHolder
   position: absolute
@@ -137,10 +179,6 @@ input:focus + a#link-forgot-password
   bottom: 0px
   left: 0px
 
-.hide-input-caret
-  color: transparent
-  text-shadow: 0 0 0 $color-black
-
 .color-input-swatch
   position: absolute
   top: $margin-micro
@@ -150,8 +188,9 @@ input:focus + a#link-forgot-password
   border-radius: $border-radius
   border: 1px solid $color-grey-mid
 
-.hide-mobile
-  display: none
+// ******************************************************
+
+// TOOLTIP
 
 .tooltip-holder
   width: 100%
@@ -183,6 +222,3 @@ input:focus + a#link-forgot-password
   color: $color-white
   span:before
     border-top-color: $color-tooltip-error
-
-.color-error
-  color: $color-error
