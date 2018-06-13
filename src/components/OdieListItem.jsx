@@ -19,23 +19,30 @@ const OdieListItem = ({ odie, firebase: { remove } }) => {
   };
 
   return(
-    <div className='list-rows-item grid-row padding-top-micro padding-bottom-micro align-items-center'>
-      <div className='grid-item item-s-9 item-m-3'>
+    <div className='list-rows-item grid-item item-s-12 no-gutter grid-row padding-top-small align-items-center'>
+      <div className='grid-item item-s-8 item-m-4 item-xl-9-3'>
         <a className="link-underline" href={window.location.protocol + '//' + subdomain + '.' + window.location.host} target="_blank">{subdomain}</a>
       </div>
-      <div className='grid-item item-s-0 item-m-5'>
+      <div className='grid-item hide-mobile item-m-4 item-xl-9-3'>
         {title}
       </div>
-      <div className='grid-item item-s-0 item-m-2'>
+      <div className='grid-item hide-mobile item-m-1 item-xl-9-1'>
         {views}
       </div>
-      <div className='grid-item item-s-3 item-m-2 grid-row no-gutter'>
-        <div className='grid-item'>
-          <Link className='font-bold' to={'/odies/edit/' + key}>Edit</Link>
+      <div className='grid-item item-s-4 item-m-3 item-xl-9-2 grid-row no-gutter'>
+        <div className='grid-item item-s-6 item-m-auto'>
+          <Link className='font-bold' to={'/edit/' + key} title='Edit'>
+            <img src='/img/icon-edit.png' className='icon' />
+          </Link>
         </div>
-        <div className='grid-item'>
-          <button className='u-pointer font-bold' onClick={() => removeOdie(key)}>Delete</button>
+        <div className='grid-item item-s-6 item-m-auto'>
+          <a className='u-pointer' onClick={() => { if (window.confirm('Are you sure you want to erase this Odie?')) removeOdie(key) }} title='Erase'>
+            <img src='/img/icon-erase.png' className='icon' />
+          </a>
         </div>
+      </div>
+      <div className='grid-item item-s-12 margin-top-small'>
+        <div className='border-top'></div>
       </div>
     </div>
   );

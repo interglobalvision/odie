@@ -5,10 +5,12 @@ import { firebaseConnect, isLoaded, isEmpty, getVal } from 'react-redux-firebase
 
 import Welcome from '../components/Welcome.jsx';
 import WelcomeHeader from '../components/WelcomeHeader.jsx';
-import ControlPanel from '../components/ControlPanel.jsx';
+import Dashboard from '../components/Dashboard.jsx';
+import DashboardHeader from '../components/DashboardHeader.jsx';
 import NoMatch from '../components/NoMatch.jsx';
 import Footer from '../components/Footer.jsx';
 import ViewOdie from './ViewOdie.jsx';
+import Loading from '../components/Loading.jsx';
 
 const App = (props) => {
   const { auth } = props;
@@ -27,11 +29,7 @@ const App = (props) => {
   }
 
   if (!isLoaded(auth)) {
-    return (
-      <div>
-        <span>Loading</span>
-      </div>
-    )
+    return <Loading />
   }
 
   if (isEmpty(auth)) {
@@ -53,9 +51,10 @@ const App = (props) => {
 
   return (
     <div>
+      <DashboardHeader />
       <main id="main-content">
         <Switch>
-          <Route path='/' component={ControlPanel} />
+          <Route path='/' component={Dashboard} />
           <Route component={NoMatch}/>
         </Switch>
       </main>

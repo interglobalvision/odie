@@ -1,30 +1,20 @@
 import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { firebaseConnect } from 'react-redux-firebase';
+import { firebaseConnect, isLoaded, isEmpty } from 'react-redux-firebase';
 
 import OdieList from '../components/OdieList';
+import Loading from '../components/Loading';
 
-const Odies = ({ odies }) => (
-  <section>
+const Odies = ({ odies }) => {
 
-    <header className='grid-row margin-bottom-basic'>
-      <div className='grid-item'>
-        <h1 className='font-size-large'>Your Odies</h1>
-      </div>
-    </header>
+  if (!isLoaded(odies)) { // If not loaded…
+    return <Loading />; // …show 'loading'
+  } else {
+    return <OdieList odies={odies} />
+  }
 
-    <div className='grid-row margin-bottom-basic justify-end'>
-      <div className='grid-item'>
-        <Link className='button' to='/odies/create'>Create Odie</Link>
-      </div>
-    </div>
-
-    <OdieList odies={odies} />
-
-  </section>
-);
+};
 
 export default compose(
   // Get noticia path from firebase based on params prop (route params from react-router)

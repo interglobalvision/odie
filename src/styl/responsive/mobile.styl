@@ -32,29 +32,51 @@ font-sizes($font-size-basic, false, $font-size-large, false, $font-size-small)
 .container
   max-width: 1280px
 
+#viewer
+  width: 95%
+  max-width: 1000px
+  margin: 0 auto
+
 .code-holder
   background: $color-grey-light
   border: $border-style
   border-radius: $border-radius
 
-.button-link-style
+ol li
+  margin-left: 1.5em
+  list-style-type: decimal
+
+button
   appearance: none
   background: transparent
   border: none
-  text-decoration: underline
   cursor: pointer
+
+.button-link-style
+  text-decoration: underline
 
 input, textarea
   appearance: none
-  width: 100%
+  width: 100% !important
+  height: auto !important
   background: transparent
   border: $border-style
   border-radius: $border-radius
   padding: $margin-micro ($margin-micro * 1.5)
   font-size: $font-size-mid
+  resize: none
 
 header.header
   padding-bottom: $margin-basic
+
+.border-top
+  border-top: $border-style
+
+.icon
+  height: 26px
+
+html, body
+  height: 100%
 
 #main-content
   min-height: calc('100vh - ' + ($header-height + $footer-height))
@@ -78,3 +100,45 @@ input:focus + a#link-forgot-password
 
 #footer-row
   padding-top: $margin-mid
+
+#form-odie-subdomain
+  order: 1
+#form-odie-doc-url
+  order: 2
+#form-odie-title
+  order: 3
+#form-odie-bg-color
+  order: 4
+#form-odie-description
+  order: 5
+
+.colorPickerHolder
+  position: absolute
+  left: 10%
+  top: -50%
+  z-index: 100
+  input
+    padding: 1em 0
+
+.colorPickerCover
+  position: fixed
+  top: 0px
+  right: 0px
+  bottom: 0px
+  left: 0px
+
+.hide-input-caret
+  color: transparent
+  text-shadow: 0 0 0 $color-black
+
+.color-input-swatch
+  position: absolute
+  top: $margin-micro
+  right: $margin-small
+  width: 1.3em
+  height: 1.3em
+  border-radius: $border-radius
+  border: 1px solid $color-grey-mid
+
+.hide-mobile
+  display: none
