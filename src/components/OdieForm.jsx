@@ -105,7 +105,6 @@ class OdieForm extends Component {
   }
 
   handleColorChange(color) {
-    console.log(color)
     this.setState({ bgColor: color.hex })
   }
 
@@ -164,7 +163,7 @@ class OdieForm extends Component {
               </label>
             </div>
 
-            <div id="form-odie-title" className='grid-item item-s-12 item-m-6 item-xl-9-4 margin-bottom-small'>
+            <div id="form-odie-title" className='grid-item item-s-12 item-m-5 item-l-6 item-xl-9-4 margin-bottom-small'>
               <input
                 id='title'
                 name='title'
@@ -181,16 +180,17 @@ class OdieForm extends Component {
               </label>
             </div>
 
-            <div id="form-odie-bg-color" className='grid-item item-s-12 item-m-2 item-xl-9-2 margin-bottom-small'>
+            <div id="form-odie-bg-color" className='grid-item item-s-12 item-m-3 item-l-2 item-xl-9-2 margin-bottom-small'>
               <input
                 id='bg-color'
                 name='bg-color'
                 placeholder='#FFFFFF'
                 disabled={this.state.isLoading}
                 value={this.state.bgColor}
-                className='margin-bottom-micro'
+                className='margin-bottom-micro font-uppercase'
                 onClick={ this.handleColorClick }
               />
+              <div className="color-input-swatch" style={{backgroundColor: this.state.bgColor}}></div>
               <label className='font-size-small' onClick={ this.handleColorClick }>
                 <div>Choose a background color</div>
               </label>
