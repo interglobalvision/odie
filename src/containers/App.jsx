@@ -16,12 +16,10 @@ const App = (props) => {
   if (subdomain.length && subdomain !== 'localhost') {
 
     return (
-      <div>
-        <Switch>
-          <Route path='/' render={(props) => <ViewOdie {...props} subdomain={subdomain} />}/>
-          <Route component={NoMatch}/>
-        </Switch>
-      </div>
+      <Switch>
+        <Route path='/' render={(props) => <ViewOdie {...props} subdomain={subdomain} />}/>
+        <Route component={NoMatch}/>
+      </Switch>
     )
   }
 
