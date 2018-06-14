@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 class LoginForm extends Component {
   state = {
     email: '',
-    username: '',
     password: '',
     error: {
       message: '',
