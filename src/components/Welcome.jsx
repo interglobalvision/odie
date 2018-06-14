@@ -5,6 +5,7 @@ import NoMatch from '../components/NoMatch.jsx';
 
 import WelcomeHome from './WelcomeHome.jsx';
 import CreateAccount from './CreateAccount.jsx';
+import UserAccount from '../containers/UserAccount.jsx';
 import WelcomeHeader from './WelcomeHeader.jsx';
 import Footer from './Footer.jsx';
 
@@ -16,7 +17,7 @@ const Welcome = () => {
         <div className='container'>
           <Switch>
             <Route exact path='/' component={WelcomeHome} />
-            <Route path='/createaccount' component={CreateAccount} />
+            <Route path='/createaccount' render={() => <UserAccount Layout={CreateAccount} /> } />
             <Route component={NoMatch}/>
           </Switch>
         </div>
