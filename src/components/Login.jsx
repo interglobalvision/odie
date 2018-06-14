@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { firebaseConnect } from 'react-redux-firebase';
 import { Link } from 'react-router-dom';
 
-class LoginForm extends Component {
+export class LoginForm extends Component {
   state = {
     email: '',
     password: '',
@@ -61,8 +61,8 @@ class LoginForm extends Component {
           </button>
         </div>
         <div className='grid-item item-s-12 no-gutter'>
-          <p>{this.state.error.message}</p>
-          <p>{this.state.loading}</p>
+          <span>{this.state.error.message}</span>
+          <span>{this.state.loading}</span>
         </div>
       </form>
     )
