@@ -62,8 +62,8 @@ export class LoginForm extends Component {
           </button>
         </div>
         <div className='grid-item item-s-12 no-gutter'>
-          <p>{this.state.error.message}</p>
-          <p>{this.state.loading}</p>
+          <span>{this.state.error.message}</span>
+          <span>{this.state.loading}</span>
         </div>
       </form>
     )

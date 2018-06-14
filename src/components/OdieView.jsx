@@ -6,6 +6,7 @@ import axios from 'axios';
 import DocumentMeta from 'react-document-meta';
 import { CloudFunctionsUrl } from '../utilities/constants.js';
 import { setIsLoading, setIsLoaded } from '../redux/actions/loadingStatusActions'
+import { unescapeHtml } from '../utilities/validation';
 
 const mapDispatchToProps = dispatch =>  ({
   setIsLoaded: () => dispatch(setIsLoaded()),
@@ -93,14 +94,16 @@ class OdieView extends Component {
     }
 
     const odie = this.props.odie[Object.keys(this.props.odie)[0]]
+    const title = unescapeHtml(odie.title);
+    const description = unescapeHtml(odie.description)
     const meta = {
-      title: odie.title,
-      description: odie.description,
+      title: title,
+      description: description,
       meta: {
         charset: 'utf-8',
         name: {
-          'og:title': odie.title,
-          'og:description': odie.description,
+          'og:title': title,
+          'og:description': description,
         }
       }
     };

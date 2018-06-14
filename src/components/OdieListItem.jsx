@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { withFirebase } from 'react-redux-firebase';
+import { unescapeHtml } from '../utilities/validation';
 
 const OdieListItem = ({ odie, firebase: { remove } }) => {
   const { key } = odie;
@@ -24,7 +25,7 @@ const OdieListItem = ({ odie, firebase: { remove } }) => {
         <a className="link-underline" href={window.location.protocol + '//' + subdomain + '.' + window.location.host} target="_blank">{subdomain}</a>
       </div>
       <div className='grid-item hide-mobile item-m-4 item-xl-9-3'>
-        {title}
+        {unescapeHtml(title)}
       </div>
       <div className='grid-item hide-mobile item-m-1 item-xl-9-1'>
         {views}
