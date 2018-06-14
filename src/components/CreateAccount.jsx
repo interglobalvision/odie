@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import { firebaseConnect } from 'react-redux-firebase';
 import { Link } from 'react-router-dom';
 import AsciiOdie from './AsciiOdie'
+import axios from 'axios';
+import { validateEmail, validatePassword } from '../utilities/validation';
+import { CloudFunctionsUrl } from '../utilities/constants.js';
+import { withRouter } from 'react-router-dom';
+
+@withRouter
 
 class CreateAccount extends Component {
   state = {
@@ -13,43 +19,102 @@ class CreateAccount extends Component {
     isLoading: false,
   }
 
+  constructor(props) {
+    super(props);
+
+    // Bind
+    this.createUser = this.createUser.bind(this);
+    this.validateForm = this.validateForm.bind(this);
+  }
+
   componentDidMount() {
     this.email.focus()
   }
 
-  signup() {
+  createUser() {
     const { email, password } = this.state;
+
+    // Create user function url
+    const createUserFunction = CloudFunctionsUrl + '/createUser';
 
     this.setState({ isLoading: true });
 
-    this.props.firebase
-      .login({email, password})
-      .then(() => {
-        this.setState({ isLoading: false })
-        // this is where we can redirect to another route
-      })
-      .catch((error) => {
-        this.setState({ isLoading: false })
-        this.setState({ error });
-        console.log('there was an error', error)
-      })
+    if (this.validateForm()) {
+      // Call create user function
+      this.props.firebase.createUser(
+        { email, password }, // auth user
+        { email }  // user profile
+      ).then(() => {
 
+        // Redirect to dashboard OdieList
+        this.props.history.push('/');
+
+      }).catch(error => {
+
+        this.setState({
+          isLoading: false,
+          error: {
+            message: 'An error has occurred.'
+          }
+        })
+
+        // Error handling
+        if (error) {
+          console.error(error);
+        }
+
+      });
+
+    } else {
+
+      // Invalid form
+      this.setState({ isLoading: false })
+    }
+  }
+
+  validateForm() {
+    const { email, password, passwordConfirm } = this.state;
+
+    if (!validateEmail(email)) {
+      this.setState({
+        error: {
+          message: 'Your email is invalid.',
+        }
+      })
+      return false
+    } else if (!validatePassword(password)) {
+      this.setState({
+        error: {
+          message: 'Your password is invalid.',
+        }
+      })
+      return false
+    } else if (password !== passwordConfirm) {
+      this.setState({
+        error: {
+          message: 'Your password doesn\'t match.',
+        }
+      })
+      return false
+    } else {
+      return true
+    }
   }
 
   render() {
     return (
       <section className='grid-row justify-center'>
         <header className='grid-item item-s-12 margin-bottom-tiny grid-row no-gutter justify-center'>
-          <h2 className='grid-item item-s-6'>Create your account</h2>
+          <h2 className='grid-item item-s-12 item-l-8'>Create your account</h2>
         </header>
 
-        <form onSubmit={event => event.preventDefault()} className='grid-item item-s-12 item-m-6 item-l-4 item-xl-3'>
+        <form onSubmit={event => event.preventDefault()} className='grid-item item-s-12 item-m-6 item-l-4 no-gutter'>
           <div className='grid-row'>
-            <div className='grid-item item-s-12 margin-bottom-small no-gutter'>
+            <div className='grid-item item-s-12 margin-bottom-small'>
               <div className='border-top'></div>
             </div>
 
-            <div className='grid-item item-s-12 margin-bottom-small no-gutter'>
+            <div className='grid-item item-s-12 margin-bottom-tiny'>
               <input
                 id='email'
                 ref={ ref => this.email = ref}
@@ -62,8 +127,9 @@ class CreateAccount extends Component {
                 <div>We will only email you about account issues or big updates. And we will never share your email with anyone else.</div>
               </label>
             </div>
-            <div className='grid-item item-s-12 margin-bottom-small no-gutter'>
+            <div className='grid-item item-s-12 margin-bottom-tiny'>
               <input
+                id='password'
                 ref={ ref => this.password = ref}
                 type='password'
                 placeholder='password'
@@ -75,20 +141,36 @@ class CreateAccount extends Component {
                 <div>At least one uppercase letter, one lowercase letter, and one number, please.</div>
               </label>
             </div>
-            <div className='grid-item item-s-4 offset-s-8 text-align-center no-gutter'>
-              <button onClick={() => this.signup()} className='font-size-large button-link-style'>
-                Signup
-              </button>
+            <div className='grid-item item-s-12 margin-bottom-small'>
+              <input
+                id='password-confirm'
+                ref={ ref => this.password = ref}
+                type='password'
+                placeholder='confirm password'
+                className='margin-bottom-micro'
+                onChange={event => this.setState({ passwordConfirm: event.target.value })}
+              />
+              <label htmlFor='password-confirm' className='font-size-small'>
+                <div>Please confirm your password.</div>
+              </label>
             </div>
-            <div className='grid-item item-s-12 no-gutter'>
-              <p>{this.state.error.message}</p>
-              <p>{this.state.loading}</p>
+          </div>
+
+          <div className='grid-row margin-bottom-basic justify-end align-items-center'>
+            { this.state.error.message !== ''
+              ? <div className='grid-item font-size-small color-error item-s-7'>{this.state.error.message}</div>
+              : null
+            }
+            <div className='grid-item item-s-5 text-align-center'>
+              <button className='button-link-style font-size-large' onClick={() => this.createUser()}>
+                Sign up
+              </button>
             </div>
           </div>
         </form>
 
-        <div className='grid-item grid-item item-s-12 item-m-6 item-l-4 item-xl-3 align-self-start'>
-          <div className='hide-mobile hide-portrait hide-landscape text-align-center'>
+        <div className='grid-item grid-item item-s-12 item-m-6 item-l-4 align-self-start'>
+          <div className='text-align-center'>
             <div className='code-holder padding-top-small padding-bottom-small'>
               <AsciiOdie />
             </div>
