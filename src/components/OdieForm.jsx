@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { ChromePicker } from 'react-color';
 
 import { setIsLoading, setIsLoaded } from '../redux/actions/loadingStatusActions'
-import { escapeHtml, unescapeHtml } from '../utilities/validation';
+import { escapeHtml, unescapeHtml, validateSubdomain, validateDocUrl } from '../utilities/validation';
 
 import AsciiOdie from './AsciiOdie'
 import DonationLink from './DonationLink'
@@ -42,11 +42,7 @@ class OdieForm extends Component {
 
     // Bind
     this.handleSubdomainChange = this.handleSubdomainChange.bind(this);
-    this.validateSubdomain = this.validateSubdomain.bind(this);
-
     this.handleDocUrlChange = this.handleDocUrlChange.bind(this);
-    this.validateDocUrl = this.validateDocUrl.bind(this);
-
     this.handleColorClick = this.handleColorClick.bind(this);
     this.handleColorClose = this.handleColorClose.bind(this);
     this.handleColorChange = this.handleColorChange.bind(this);
@@ -62,6 +58,11 @@ class OdieForm extends Component {
       title: unescapeHtml(escapedTitle),
       description: unescapeHtml(escapedDescription),
     })
+  }
+
+  componentDidMount() {
+    // Focus subdomain input if creating new Odie
+    if (!this.props.id) this.subdomain.focus()
   }
 
   addOdie() {
@@ -131,41 +132,15 @@ class OdieForm extends Component {
   handleSubdomainChange(event) {
     this.setState({
       subdomain: event.target.value,
-      subdomainValid: this.validateSubdomain(event.target.value)
+      subdomainValid: validateSubdomain(event.target.value)
     })
-  }
-
-  validateSubdomain(subdomain) {
-    const specialChars = /[ !@#$%^&*()_+\=\[\]{};':"\\|,.<>\/?]/;
-
-    // true if no special characters present in string
-    const isValid = !specialChars.test(subdomain);
-
-    return isValid;
   }
 
   handleDocUrlChange(event) {
     this.setState({
       docUrl: event.target.value,
-      docUrlValid: this.validateDocUrl(event.target.value)
+      docUrlValid: validateDocUrl(event.target.value)
     })
-  }
-
-  validateDocUrl(docUrl) {
-    // create <a> element and set href attr to docUrl
-    const parser = document.createElement('a');
-    parser.href = docUrl;
-
-    // split path into array of parts
-    const pathParts = parser.pathname.split("/");
-
-    const isValid =
-      parser.protocol === 'https:' &&
-      parser.hostname === 'docs.google.com' &&
-      pathParts[1] === 'document' &&
-      pathParts[5] === 'pub';
-
-    return isValid;
   }
 
   handleColorClick() {
@@ -204,6 +179,7 @@ class OdieForm extends Component {
                 disabled={this.state.isLoading}
                 value={this.state.subdomain}
                 onChange={ this.handleSubdomainChange }
+                ref={ ref => this.subdomain = ref}
                 className={'margin-bottom-micro input-valid-' + this.state.subdomainValid}
               />
               <label htmlFor='subdomain' className='font-size-small u-inline-block'>
@@ -304,7 +280,6 @@ class OdieForm extends Component {
                 { this.props.id ? 'Save' : 'Create'}
               </button>
             </div>
-
           </div>
 
         </form>
