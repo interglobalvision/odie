@@ -74,11 +74,13 @@ button
   background: transparent
   border: none
   cursor: pointer
-
+  &[disabled]
+    cursor: unset
+    
 .button-link-style
   text-decoration: underline
 
-input, textarea
+input, textarea, .StripeElement
   appearance: none
   width: 100% !important
   height: auto !important
@@ -92,6 +94,11 @@ input, textarea
     border-color: $color-error
     &:focus
       outline-color: $color-error-light
+
+input[type='range']
+  height: $margin-small !important
+  padding: $margin-micro
+  border-radius: $margin-small
 
 .hide-input-caret
   color: transparent

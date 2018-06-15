@@ -10,6 +10,7 @@
     "firebase": "^4.8.1",
     "globie-styl-library": "^1.0.2",
     "kouto-swiss": "^1.1.0",
+    "query-string": "^6.1.0",
     "react": "^16.2.0",
     "react-color": "^2.14.1",
     "react-document-meta": "^3.0.0-beta.2",
@@ -19,7 +20,10 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-router-test-context": "^0.1.0",
-    "redux": "^3.7.2"
+    "react-script-loader-hoc": "^1.1.0",
+    "react-stripe-elements": "^2.0.0",
+    "redux": "^3.7.2",
+    "stripe": "^6.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
