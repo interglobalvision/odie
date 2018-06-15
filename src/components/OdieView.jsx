@@ -22,6 +22,7 @@ class OdieView extends Component {
     super(props);
 
     this.state = {
+      currentOdie: null,
       contents: null,
       error: false,
     }
@@ -31,12 +32,31 @@ class OdieView extends Component {
   }
 
   componentWillMount() {
+    const parentOdie = this.props.odie[Object.keys(this.props.odie)[0]];
+
+    // First set the parent as the current odie
+    this.currentOdie = parentOdie;
+
+    // Check if the URL has a path and that the parent odie has paths
+    if (this.props.location.pathname !== undefined && parentOdie.paths !== undefined) {
+
+      // Remove the '/' from the path
+      const path = this.props.location.pathname.substring(1);
+
+      if (parentOdie.paths[path] !== undefined) { // the path exists in the parent
+
+        // Set path as the current odie
+        this.currentOdie = parentOdie.paths[path];
+      }
+
+    }
+
     this.requestContent();
   }
 
   requestContent() {
     const _this = this;
-    const odie = this.props.odie[Object.keys(this.props.odie)[0]]
+    const odie = this.currentOdie;
 
     this.setState({ isLoading: true })
     this.props.setIsLoading();
@@ -93,7 +113,7 @@ class OdieView extends Component {
       return 'Error';
     }
 
-    const odie = this.props.odie[Object.keys(this.props.odie)[0]]
+    const odie = this.currentOdie;
     const title = unescapeHtml(odie.title);
     const description = unescapeHtml(odie.description)
     const meta = {
