@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {OdiePhpApis} from '../utilities/constants';
-import moment from 'moment';
+import moment from 'moment-twitter';
 
 export default class TwitterWidget extends Component {
   state = {
@@ -39,7 +39,7 @@ export default class TwitterWidget extends Component {
     const { isLoading, tweet } = this.state;
 
     if (!isLoading && tweet !== null) {
-      const fromNow = moment(tweet.created_at).fromNow();
+      const fromNow = moment(tweet.created_at).twitter();
       const tweetUrl = tweet.entities.urls[0] || null;
       const tweetMedia = tweet.entities.media[0] || null;
 
