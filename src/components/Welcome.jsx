@@ -6,7 +6,7 @@ import TwitterWidget from './TwitterWidget';
 
 const Welcome = () => (
   <div className='container'>
-    <div id='welcome-row' className='grid-row'>
+    <div id='welcome-row' className='grid-row align-items-start'>
       <div className='grid-item item-s-12 item-m-6 item-l-5 item-xl-3 code-holder text-align-center padding-top-small padding-bottom-small'>
         <AsciiOdie />
       </div>
