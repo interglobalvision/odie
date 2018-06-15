@@ -3,6 +3,7 @@ import {injectStripe, CardElement} from 'react-stripe-elements';
 import axios from 'axios';
 import queryString from 'query-string';
 import { firebaseConnect } from 'react-redux-firebase';
+import { OdiePhpApis } from '../utilities/constants.js';
 
 class DonateForm extends React.Component {
   state = {
@@ -41,8 +42,8 @@ class DonateForm extends React.Component {
       // Send token and other payment information
       // to our server to complete the payment request
       axios({
-        method:'get',
-        url:'http://interglobal.vision/odie-donate/charge.php',
+        method: 'get',
+        url: OdiePhpApis + '/charge.php',
         params: {
           amount,
           currency: 'usd',
