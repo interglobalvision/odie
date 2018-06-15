@@ -12,6 +12,8 @@ class Donate extends Component<{}, {stripe: null | StripeShape}> {
   constructor(props) {
     super(props);
 
+    this.stripeKey = StripeKeys.test;
+
     this.state = {
       stripe: null,
     };
@@ -24,7 +26,7 @@ class Donate extends Component<{}, {stripe: null | StripeShape}> {
     stripeJs.async = true;
     stripeJs.onload = () => {
       this.setState({
-        stripe: window.Stripe(StripeKeys.test),
+        stripe: window.Stripe(this.stripeKey),
       });
     };
     document.body && document.body.appendChild(stripeJs);
@@ -39,7 +41,7 @@ class Donate extends Component<{}, {stripe: null | StripeShape}> {
 
         <StripeProvider stripe={this.state.stripe}>
           <Elements>
-            <DonateForm stripe={this.state.stripe} userEmail={this.props.userEmail} />
+            <DonateForm stripe={this.state.stripe} authUser={this.props.authUser} stripeKey={this.stripeKey} />
           </Elements>
         </StripeProvider>
 

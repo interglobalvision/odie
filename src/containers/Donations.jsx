@@ -5,9 +5,9 @@ import { firebaseConnect } from 'react-redux-firebase';
 
 import Donate from '../components/Donate.jsx';
 
-const Donations = ({ userEmail }) => {
+const Donations = ({ firebase, authUser }) => {
   return (
-    <Donate userEmail={userEmail} />
+    <Donate authUser={authUser} />
   );
 };
 
@@ -15,7 +15,7 @@ export default compose(
   firebaseConnect(),
   connect(({ firebase }) => {
     return ({
-      userEmail: firebase.auth.email,
+      authUser: firebase.auth,
     })
   })
 )(Donations);

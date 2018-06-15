@@ -8,6 +8,7 @@ class DonateForm extends React.Component {
   state = {
     amount: 25,
     isLoading: false,
+    isProcessing: false,
     note: '',
     error: null,
     success: null,
@@ -23,13 +24,15 @@ class DonateForm extends React.Component {
 
   makeCharge() {
     const { amount, note } = this.state;
+    const { uid, email } = this.props.authUser;
 
     this.chargeButton.blur()
 
     this.setState({
       error: null,
       success: null,
-      isLoading: true
+      isLoading: true,
+      isProcessing: true,
     });
 
     // Get token containing card details
@@ -44,20 +47,31 @@ class DonateForm extends React.Component {
           amount,
           currency: 'usd',
           token: token.token.id,
-          email: this.props.userEmail,
-          description: 'Odie donation:' + note,
+          email,
+          description: 'Odie donation / ' + note,
         },
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
-          'Authorization': 'Bearer sk_test_7neLDJD2qnl7mtbDbzTyvMJR',
+          'Authorization': 'Bearer ' + this.props.stripeKey,
         },
         mode: 'no-cors',
       })
       .then((response) => {
-        if (response.data === 'authorized') {
+        console.log(response);
+        if (response.data.outcome === 'authorized') {
           // Success
           this.setState({ success: 'Thank you for your donation! A receipt will be sent to your email.' });
-          this.cardElement.clear(); // Clear card details
+          // Clear card details
+          this.cardElement.clear();
+          // Push donation to firebase
+          this.props.firebase
+            .push('donations', {
+              amount,
+              createdAt: response.data.created,
+              stripeId: response.data.id,
+              note,
+              uid,
+            });
         } else if (response.status === 200) {
           // Card declined
           this.setState({ error: response.data.message });
@@ -66,13 +80,17 @@ class DonateForm extends React.Component {
           this.setState({ error: response });
         }
 
-        this.setState({ isLoading: false });
+        this.setState({
+          isLoading: false,
+          isProcessing: false
+        });
       })
     }).catch((error) => {
       // Axios error
       this.setState({
         error: 'Please try again later.',
-        isLoading: false
+        isLoading: false,
+        isProcessing: false
       });
       console.error(error);
     });
@@ -141,14 +159,17 @@ class DonateForm extends React.Component {
             { this.state.success }
           </div>
           <div className='grid-item'>
-            <button
-              className='button-link-style font-size-large'
-              onClick={() => this.makeCharge()}
-              ref={(ref) => this.chargeButton = ref}
-              disabled={this.state.isLoading || !this.state.complete}
-            >
-              Make donation
-            </button>
+            { this.state.isProcessing
+              ? <span className='font-size-large'>Processing...</span>
+              : <button
+                  className='button-link-style font-size-large'
+                  onClick={() => this.makeCharge()}
+                  ref={(ref) => this.chargeButton = ref}
+                  disabled={this.state.isLoading || !this.state.complete}
+                >
+                  Make donation
+                </button>
+            }
           </div>
         </div>
       </form>
@@ -156,4 +177,4 @@ class DonateForm extends React.Component {
   }
 }
 
-export default injectStripe(DonateForm);
+export default firebaseConnect()(injectStripe(DonateForm));
