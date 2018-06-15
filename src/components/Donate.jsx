@@ -1,6 +1,5 @@
 // MyStoreCheckout.js
 import React, { Component } from 'react';
-import ScriptLoader from 'react-script-loader-hoc';
 import AsciiOdie from './AsciiOdie'
 import Loading from './Loading'
 import DonateForm from './DonateForm'
