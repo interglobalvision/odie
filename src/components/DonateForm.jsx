@@ -4,6 +4,7 @@ import axios from 'axios';
 import queryString from 'query-string';
 import { firebaseConnect } from 'react-redux-firebase';
 import { OdiePhpApis } from '../utilities/constants.js';
+import { stripScripts } from '../utilities/validation.js';
 
 class DonateForm extends React.Component {
   state = {
@@ -24,8 +25,11 @@ class DonateForm extends React.Component {
   }
 
   makeCharge() {
-    const { amount, note } = this.state;
+    const { amount } = this.state;
+    let { note } = this.state;
     const { uid, email } = this.props.authUser;
+
+    note = stripScripts(note);
 
     this.chargeButton.blur()
 
