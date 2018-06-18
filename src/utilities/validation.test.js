@@ -2,7 +2,9 @@ import {
   escapeHtml,
   unescapeHtml,
   validateSubdomain,
-  validateDocUrl
+  validateDocUrl,
+  validateEmail,
+  validatePassword,
 } from './validation';
 
 describe('escapeHtml()', () => {
@@ -76,5 +78,43 @@ describe('validateDocUrl()', () => {
     const docUrl = 'https://docs.google.com/document/d/e/2PACX-1vS_jyS7mJPnulZJIkJcPs3gIyvnxAdBU1uvgOabSn4RBtOwsg1FbCNYbdcYKQaH-PxU-0CmEHmH-NS4/pub'
 
     expect(validateDocUrl(docUrl)).toEqual(true);
+  });
+});
+
+describe('validateEmail()', () => {
+  it('should return false if the password doesn\'t have an uppercase letter', () => {
+    const password = 'mypassword123';
+
+    expect(validatePassword(password)).toEqual(false);
+  });
+
+  it('should return false if the password doesn\'t have a lowercase letter', () => {
+    const password = 'MYPASSWORD123';
+
+    expect(validatePassword(password)).toEqual(false);
+  });
+
+  it('should return false if the password doesn\'t have a number', () => {
+    const password = 'MyPassword';
+
+    expect(validatePassword(password)).toEqual(false);
+  });
+
+  it('should return false if the password have a whitespace', () => {
+    const password = 'My Password123';
+
+    expect(validatePassword(password)).toEqual(false);
+  });
+
+  it('should return false if the password length is less than 8 characters', () => {
+    const password = 'MyPass1';
+
+    expect(validatePassword(password)).toEqual(false);
+  });
+
+  it('should return true if the password is valid', () => {
+    const password = 'MyPassword123';
+
+    expect(validatePassword(password)).toEqual(true);
   });
 });
