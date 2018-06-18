@@ -4,14 +4,14 @@ import PropTypes from 'prop-types';
 import { mount } from 'enzyme';
 import createRouterContext from 'react-router-test-context'
 
-import CreateAccount from './CreateAccount';
+import { CreateAccountForm } from './CreateAccount';
 
 /**
  * Setup stuff
  */
 
 // Overrides `router` marked as default in the contextTypes
-CreateAccount.contextTypes = {
+CreateAccountForm.contextTypes = {
   router: PropTypes.object
 };
 
@@ -21,18 +21,18 @@ const context = createRouterContext();
 /**
  * Tests
  */
-describe('<CreateAccount />', () => {
+describe('<CreateAccountForm />', () => {
 
   it('renders without crashing', () => {
     // Mount the component
-    const component = mount(<CreateAccount />, { context })
+    const component = mount(<CreateAccountForm />, { context })
   });
 
   it('should handle the email field onChange event and update state', () => {
     const expectedValue = 'test@email.com';
 
     // Mount the component
-    const component = mount(<CreateAccount />, { context });
+    const component = mount(<CreateAccountForm />, { context });
 
     // Check initial state
     expect(component.state().email).toEqual('');
@@ -48,7 +48,7 @@ describe('<CreateAccount />', () => {
     const expectedValue = '123123';
 
     // Mount the component
-    const component = mount(<CreateAccount />, { context });
+    const component = mount(<CreateAccountForm />, { context });
 
     // Check initial state
     expect(component.state().password).toEqual('');
@@ -62,13 +62,13 @@ describe('<CreateAccount />', () => {
 
   it('should call createUser() on button click', () => {
     // Override login() with a mock function
-    CreateAccount.prototype.createUser = jest.fn();
+    CreateAccountForm.prototype.createUser = jest.fn();
 
     // Set spy for login function
-    const spy = jest.spyOn(CreateAccount.prototype, 'createUser');
+    const spy = jest.spyOn(CreateAccountForm.prototype, 'createUser');
 
     // Mount the component
-    const component = mount(<CreateAccount />, { context });
+    const component = mount(<CreateAccountForm />, { context });
 
     // Simulate click in Login button
     component.find('button').simulate('click');

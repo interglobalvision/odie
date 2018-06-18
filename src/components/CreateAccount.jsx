@@ -7,9 +7,7 @@ import { validateEmail, validatePassword } from '../utilities/validation';
 import { CloudFunctionsUrl } from '../utilities/constants.js';
 import { withRouter } from 'react-router-dom';
 
-@withRouter
-
-class CreateAccount extends Component {
+export class CreateAccountForm extends Component {
   state = {
     email: '',
     password: '',
@@ -181,4 +179,4 @@ class CreateAccount extends Component {
   }
 }
 
-export default firebaseConnect()(CreateAccount);
+export default firebaseConnect()(withRouter(CreateAccountForm));
