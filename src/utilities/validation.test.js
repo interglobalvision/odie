@@ -100,7 +100,7 @@ describe('validateEmail()', () => {
     expect(validatePassword(password)).toEqual(false);
   });
 
-  it('should return false if the password have a whitespace', () => {
+  it('should return false if the password has a whitespace', () => {
     const password = 'My Password123';
 
     expect(validatePassword(password)).toEqual(false);
