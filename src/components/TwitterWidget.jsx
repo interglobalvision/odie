@@ -18,8 +18,6 @@ export default class TwitterWidget extends Component {
     axios.get(OdiePhpApis + '/twitter.php', {
       mode: 'no-cors',
     }).then((response) => {
-      console.log(response);
-
       if (response.data.length) {
         this.setState({
           tweet: response.data[0],
