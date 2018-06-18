@@ -5,7 +5,7 @@ import moment from 'moment-twitter';
 
 export default class TwitterWidget extends Component {
   state = {
-    tweet: '',
+    tweet: null,
     error: {
       message: ''
     },
@@ -37,32 +37,28 @@ export default class TwitterWidget extends Component {
     const { isLoading, tweet } = this.state;
 
     if (!isLoading && tweet !== null) {
+      console.log(tweet);
       const fromNow = moment(tweet.created_at).twitter();
-      const tweetUrl = tweet.entities.urls[0] || null;
-      const tweetMedia = tweet.entities.media[0] || null;
+      const tweetUrl = tweet.entities.urls || [];
+      const tweetMedia = tweet.entities.media || [];
 
       return (
-        <div id="twitter-widget-holder">
-          <h3 className='u-inline-block'><a href="https://twitter.com/odiedotus"><span className="font-bold">{tweet.user.name}</span> @<span id='twitter-handle'>{tweet.user.screen_name}</span></a></h3> • <span id='tweet-from-now'>{fromNow}</span>
+        <a id="twitter-widget-holder" href="https://twitter.com/odiedotus">
+          <h3 className='u-inline-block'><span className="font-bold">{tweet.user.name}</span> @<span id='twitter-handle'>{tweet.user.screen_name}</span></h3> • <span id='tweet-from-now'>{fromNow}</span>
           <div id="tweet-content" className="margin-top-micro">
-            { tweetUrl !== null
-              ? <div id='tweet-text'>
-                  <a href={tweetUrl.url} className='link-underline'>{tweet.text}</a>
-                </div>
-              : <div id='tweet-text'>
-                  <span>{tweet.text}</span>
-                </div>
-            }
-            { tweetMedia !== null
+            <div id='tweet-text'>
+              <span>{tweet.text}</span>
+            </div>
+            { tweetMedia.length
               ? <div id='tweet-media' className='margin-top-tiny'>
-                  <a href={tweetMedia.media_url}>
-                    <img src={tweetMedia.media_url} className='twitter-media' />
+                  <a href={tweetMedia[0].media_url}>
+                    <img src={tweetMedia[0].media_url} className='twitter-media' />
                   </a>
                 </div>
               : null
             }
           </div>
-        </div>
+        </a>
       );
     }
 
