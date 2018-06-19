@@ -30,7 +30,7 @@ const OdieList = ({ odies }) => {
           </div>
           { isEmpty(odies) ?
             <div className='grid-item item-s-12 margin-top-basic margin-bottom-basic font-size-large'>
-              You don’t have any Odies yet… But you can <Link to='/create' className='link-underline'>create one</Link>!
+              <span>You don’t have any Odies yet… But you can <Link to='/create' className='link-underline'>create one</Link>!</span>
             </div> :
             Object.keys(odies).map( // …else map thru noticias
               (key, id) => <OdieListItem key={key} id={id} odie={odies[key]} />

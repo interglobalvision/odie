@@ -1,4 +1,5 @@
 # Odie
+[![Build Status](https://travis-ci.com/interglobalvision/odie.svg?branch=master)](https://travis-ci.com/interglobalvision/odie)
 
             _.._   _..---.
          .-"    ;-"       \

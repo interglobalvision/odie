@@ -4,11 +4,8 @@ import { connect } from 'react-redux';
 import { firebaseConnect, isLoaded, isEmpty, getVal } from 'react-redux-firebase';
 
 import Welcome from '../components/Welcome.jsx';
-import WelcomeHeader from '../components/WelcomeHeader.jsx';
 import Dashboard from '../components/Dashboard.jsx';
-import DashboardHeader from '../components/DashboardHeader.jsx';
 import NoMatch from '../components/NoMatch.jsx';
-import Footer from '../components/Footer.jsx';
 import ViewOdie from './ViewOdie.jsx';
 import Loading from '../components/Loading.jsx';
 
@@ -19,12 +16,10 @@ const App = (props) => {
   if (subdomain.length && subdomain !== 'localhost') {
 
     return (
-      <div>
-        <Switch>
-          <Route path='/' render={(props) => <ViewOdie {...props} subdomain={subdomain} />}/>
-          <Route component={NoMatch}/>
-        </Switch>
-      </div>
+      <Switch>
+        <Route path='/' render={(props) => <ViewOdie {...props} subdomain={subdomain} />}/>
+        <Route component={NoMatch}/>
+      </Switch>
     )
   }
 
@@ -35,31 +30,12 @@ const App = (props) => {
   if (isEmpty(auth)) {
 
     return (
-      <div>
-        <WelcomeHeader />
-        <main id="main-content">
-          <Switch className='main-content'>
-            <Route exact path='/' component={Welcome} />
-            <Route exact path='/login' component={Welcome} />
-            <Route component={NoMatch}/>
-          </Switch>
-        </main>
-        <Footer />
-      </div>
+      <Welcome />
     );
   }
 
   return (
-    <div>
-      <DashboardHeader />
-      <main id="main-content">
-        <Switch>
-          <Route path='/' component={Dashboard} />
-          <Route component={NoMatch}/>
-        </Switch>
-      </main>
-      <Footer />
-    </div>
+    <Dashboard />
   );
 };
 
