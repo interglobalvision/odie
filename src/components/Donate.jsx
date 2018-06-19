@@ -3,11 +3,11 @@ import React, { Component } from 'react';
 import AsciiOdie from './AsciiOdie'
 import Loading from './Loading'
 import DonateForm from './DonateForm'
-import {StripeProvider} from 'react-stripe-elements';
-import {Elements} from 'react-stripe-elements';
-import {StripeKeys} from '../utilities/stripeKeys';
+import { StripeProvider } from 'react-stripe-elements';
+import { Elements } from 'react-stripe-elements';
+import { StripeKeys } from '../utilities/stripeKeys';
 
-class Donate extends Component<{}, {stripe: null | StripeShape}> {
+class Donate extends Component {
   constructor(props) {
     super(props);
 
