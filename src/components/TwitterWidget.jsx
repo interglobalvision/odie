@@ -24,7 +24,7 @@ export default class TwitterWidget extends Component {
           isLoading: false,
         });
       }
-    }).catch(function (error) {
+    }).catch((error) => {
       console.error(error);
       this.setState({
         error: error,
@@ -37,7 +37,6 @@ export default class TwitterWidget extends Component {
     const { isLoading, tweet } = this.state;
 
     if (!isLoading && tweet !== null) {
-      console.log(tweet);
       const fromNow = moment(tweet.created_at).twitter();
       const tweetUrl = tweet.entities.urls || [];
       const tweetMedia = tweet.entities.media || [];
