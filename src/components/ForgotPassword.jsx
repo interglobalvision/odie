@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
-import { firebaseConnect } from 'react-redux-firebase';
-import { Link } from 'react-router-dom';
+import { getFirebase } from 'react-redux-firebase';
+import { Link, withRouter } from 'react-router-dom';
 import AsciiOdie from './AsciiOdie'
-import axios from 'axios';
-import { validateEmail, validatePassword } from '../utilities/validation';
-import { CloudFunctionsUrl } from '../utilities/constants.js';
-import { withRouter } from 'react-router-dom';
+import { validateEmail } from '../utilities/validation';
 
 export class ForgotPasswordForm extends Component {
   state = {
     email: '',
-    password: '',
     error: {
       message: '',
     },
@@ -21,30 +17,25 @@ export class ForgotPasswordForm extends Component {
     super(props);
 
     // Bind
-    this.createUser = this.createUser.bind(this);
-    this.validateForm = this.validateForm.bind(this);
+    this.resetPassword = this.resetPassword.bind(this);
   }
 
   componentDidMount() {
     this.email.focus()
   }
 
-  createUser() {
-    const { email, password } = this.state;
-
-    // Create user function url
-    const createUserFunction = CloudFunctionsUrl + '/createUser';
+  resetPassword() {
+    const { email } = this.state;
+    const firebase = getFirebase();
 
     this.setState({ isLoading: true });
 
-    if (this.validateForm()) {
+    if (validateEmail(email)) {
       // Call create user function
-      this.props.firebase.createUser(
-        { email, password }, // auth user
-        { email }  // user profile
-      ).then(() => {
+      firebase.auth().sendPasswordResetEmail(email).then(() => {
 
         // Redirect to dashboard OdieList
+        window.alert('A reset link has been emailed to you.')
         this.props.history.push('/');
 
       }).catch(error => {
@@ -66,36 +57,12 @@ export class ForgotPasswordForm extends Component {
     } else {
 
       // Invalid form
-      this.setState({ isLoading: false })
-    }
-  }
-
-  validateForm() {
-    const { email, password, passwordConfirm } = this.state;
-
-    if (!validateEmail(email)) {
       this.setState({
+        isLoading: false,
         error: {
           message: 'Your email is invalid.',
         }
       })
-      return false
-    } else if (!validatePassword(password)) {
-      this.setState({
-        error: {
-          message: 'Your password is invalid.',
-        }
-      })
-      return false
-    } else if (password !== passwordConfirm) {
-      this.setState({
-        error: {
-          message: 'Your password doesn\'t match.',
-        }
-      })
-      return false
-    } else {
-      return true
     }
   }
 
@@ -103,7 +70,7 @@ export class ForgotPasswordForm extends Component {
     return (
       <section className='grid-row justify-center'>
         <header className='grid-item item-s-12 margin-bottom-tiny grid-row no-gutter justify-center'>
-          <h2 className='grid-item item-s-12 item-l-8'>Forgotten Password</h2>
+          <h2 className='grid-item item-s-12 item-l-8'>Reset Password</h2>
         </header>
 
         <form onSubmit={event => event.preventDefault()} className='grid-item item-s-12 item-m-6 item-l-4 no-gutter'>
@@ -133,8 +100,12 @@ export class ForgotPasswordForm extends Component {
               : null
             }
             <div className='grid-item item-s-5 text-align-center'>
-              <button className='button-link-style font-size-large' onClick={() => this.createUser()}>
-                Retrieve
+              <button
+                className='button-link-style font-size-large'
+                onClick={() => this.resetPassword()}
+                disabled={this.state.isLoading}
+              >
+                Reset
               </button>
             </div>
           </div>
@@ -152,4 +123,4 @@ export class ForgotPasswordForm extends Component {
   }
 }
 
-export default firebaseConnect()(withRouter(ForgotPasswordForm));
+export default withRouter(ForgotPasswordForm);
