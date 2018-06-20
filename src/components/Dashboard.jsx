@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import NoMatch from './NoMatch.jsx';
 import Odies from '../containers/Odies';
 import AddOdie from '../containers/AddOdie';
+import LegacyOdie from '../containers/LegacyOdie';
 import UpdateOdie from '../containers/UpdateOdie';
 import Donations from '../containers/Donations';
 import DashboardHeader from './DashboardHeader.jsx';
@@ -17,6 +18,7 @@ const Dashboard = () => {
           <Switch>
             <Route exact path='/' component={Odies} />
             <Route path='/create' component={AddOdie} />
+            <Route path='/legacy' component={LegacyOdie} />
             <Route path='/edit/:key' component={UpdateOdie} />
             <Route path='/donate' component={Donations}/>
             <Route component={NoMatch}/>

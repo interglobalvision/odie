@@ -31,11 +31,16 @@ const OdieList = ({ odies }) => {
           { isEmpty(odies) ?
             <div className='grid-item item-s-12 margin-top-basic margin-bottom-basic font-size-large'>
               <span>You don’t have any Odies yet… But you can <Link to='/create' className='link-underline'>create one</Link>!</span>
-            </div> :
+            </div> : null
+          }
+          { !isEmpty(odies) ?
             Object.keys(odies).map( // …else map thru noticias
               (key, id) => <OdieListItem key={key} id={id} odie={odies[key]} />
-            )
+            ) : null
           }
+            <div className='grid-item item-s-12 margin-top-basic margin-bottom-basic font-size-large'>
+              <Link to='/legacy' className='link-underline'>Do you have a legacy Odie you would like to link up to your account?</Link>
+            </div>
         </div>
       </div>
       <div className='grid-item item-xl-3 text-align-center align-self-start'>

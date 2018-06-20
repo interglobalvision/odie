@@ -5,10 +5,12 @@ import { combineReducers } from 'redux'
 import { firebaseStateReducer } from 'react-redux-firebase'
 
 import { loadingStatusReducer } from './reducers/loadingStatusReducer';
+import { legacyOdieReducer } from './reducers/legacyOdieReducer';
 
 const appReducer = combineReducers({
   firebase: firebaseStateReducer,
   loadingStatus: loadingStatusReducer,
+  legacyOdie: legacyOdieReducer,
 })
 
 // Setup root reducer
