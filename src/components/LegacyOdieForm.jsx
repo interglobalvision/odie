@@ -82,7 +82,7 @@ class LegacyOdieForm extends Component {
           </div>
 
 
-          { this.props.odie.verificationHash ? <div className='grid-row margin-bottom-basic justify-end align-items-center'><div className='grid-item item-s-12 item-m-6 margin-bottom-micro'>copy/paste this code into your google doc and <i>verify</i></div><div className='grid-item item-s-12 item-m-6 margin-bottom-micro'><input type="text" disabled value={this.props.odie.verificationHash} /></div></div> : null }
+          { this.props.odie.verificationHash ? <div className='grid-row margin-bottom-basic justify-end align-items-center'><div className='grid-item item-s-12 item-m-6 margin-bottom-micro'><span>copy/paste this code into your google doc and <i>verify</i></span></div><div className='grid-item item-s-12 item-m-6 margin-bottom-micro'><input type="text" disabled value={this.props.odie.verificationHash} /><span className="font-size-small">google docs can take up to 5 minutes to update</span></div></div> : null }
           { this.props.odie.verificationHash ? <div className='grid-row margin-bottom-basic justify-end align-items-center'>
             <div className='grid-item'>
               <button className='button-link-style font-size-large' onClick={ event => this.props.verifyLegacyOdie() }>Verify</button>
