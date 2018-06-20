@@ -5,8 +5,10 @@ import { applyMiddleware } from 'redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+import { ConnectedRouter, connectRouter, routerMiddleware } from 'connected-react-router';
 
 import { createStoreWithFirebase } from './firebase';
+import { history } from './history';
 
 import './styl';
 
@@ -15,15 +17,18 @@ import rootReducer from './redux';
 import App from './containers/App.jsx';
 
 const store = createStoreWithFirebase(
-  rootReducer,
+  connectRouter(history)(rootReducer),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
-  applyMiddleware(thunk));
+  applyMiddleware(
+    thunk,
+    routerMiddleware(history)
+  ));
 
 ReactDOM.render(
 	<Provider store={store}>
-		<Router>
+    <ConnectedRouter history={history}>
 			<App />
-		</Router>
+		</ConnectedRouter>
 	</Provider>
 	,
 	document.getElementById('root')

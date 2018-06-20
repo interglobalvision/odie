@@ -1,21 +1,25 @@
+import axios from 'axios';
 import { getFirebase } from 'react-redux-firebase';
 import * as Hash from 'object-hash';
+import { push } from 'connected-react-router'
 
-export function setDocUrl(docUrl) {
+import { requestContent }  from '../../utilities/google';
+
+export const setDocUrl = (docUrl) => {
   return {
-    type: 'SET_DOC_URL',
+    type: 'SET_LEGACY_DOC_URL',
     docUrl,
   }
 }
 
-export function setSubdomain(subdomain) {
+export const setSubdomain = (subdomain) => {
   return {
-    type: 'SET_SUBDOMAIN',
+    type: 'SET_LEGACY_SUBDOMAIN',
     subdomain,
   }
 }
 
-export function verifySubdomain(subdomain) {
+export const verifySubdomain = (subdomain) => {
   return dispatch => {
     const firebase = getFirebase();
 
@@ -29,7 +33,7 @@ export function verifySubdomain(subdomain) {
         }
 
         dispatch({
-          type: 'VERIFY_SUBDOMAIN',
+          type: 'LEGACY_VERIFY_SUBDOMAIN',
           verified,
         });
 
@@ -41,7 +45,7 @@ export function verifySubdomain(subdomain) {
   }
 }
 
-export function verifyDocUrl(docUrl) {
+export const verifyDocUrl = (docUrl) => {
   return dispatch => {
     const firebase = getFirebase();
 
@@ -55,7 +59,7 @@ export function verifyDocUrl(docUrl) {
         }
 
         dispatch({
-          type: 'VERIFY_DOC_URL',
+          type: 'LEGACY_VERIFY_DOC_URL',
           verified,
         });
 
@@ -67,7 +71,7 @@ export function verifyDocUrl(docUrl) {
   }
 }
 
-export function verifySubdomainAndDocUrl() {
+export const verifySubdomainAndDocUrl = () => {
   return (dispatch, getState) => {
     const firebase = getFirebase();
     const { subdomain, docUrl } = getState().legacyOdie;
@@ -91,18 +95,54 @@ export function verifySubdomainAndDocUrl() {
               });
 
               dispatch({
-                type: 'SET_VERIFICATION_HASH',
+                type: 'SET_LEGACY_VERIFICATION_HASH',
                 hash,
               });
             }
           }
 
           dispatch({
-            type: 'VERIFY_SUBDOMAIN_AND_DOC_URL',
+            type: 'LEGACY_VERIFY_SUBDOMAIN_AND_DOC_URL',
             verified,
           });
 
         })
     }
+  }
+}
+
+export const verifyLegacyOdie = () => {
+  return (dispatch, getState) => {
+    const { subdomain, docUrl, verificationHash } = getState().legacyOdie;
+    const { uid } = getState().firebase.auth;
+    const firebase = getFirebase();
+
+    axios.get(docUrl, {
+      mode: 'no-cors',
+    }).then( response => {
+      const doc = new DOMParser().parseFromString(response.data, 'text/html');
+      const contents = doc.getElementById('contents');
+
+      if (contents.innerText.indexOf(verificationHash) >= 0) {
+
+        return firebase.database().ref('odies').orderByChild('subdomain').equalTo(subdomain).limitToFirst(1).once('value');
+      }
+    }).then( snapshot => {
+
+      if (snapshot.val()) {
+        const id = Object.keys(snapshot.val())[0];
+
+        return firebase.database().ref(`odies/${id}`).update({
+          uid,
+        });
+      }
+    }).then( response => {
+      dispatch(push('/'));
+      dispatch({
+        type: 'RESET_LEGACY_FORM',
+      });
+    }).catch(function (error) {
+      console.error(error);
+    });
   }
 }

@@ -13,30 +13,32 @@ const initialState = {
 // The loading reducer
 export const legacyOdieReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'SET_DOC_URL':
+    case 'SET_LEGACY_DOC_URL':
       return Object.assign({}, state, {
         docUrl: action.docUrl,
       });
-    case 'SET_SUBDOMAIN':
+    case 'SET_LEGACY_SUBDOMAIN':
       return Object.assign({}, state, {
         subdomain: action.subdomain
       });
-    case 'VERIFY_SUBDOMAIN':
+    case 'LEGACY_VERIFY_SUBDOMAIN':
       return Object.assign({}, state, {
         subdomainValid: action.verified,
       });
-    case 'VERIFY_DOC_URL':
+    case 'LEGACY_VERIFY_DOC_URL':
       return Object.assign({}, state, {
         docUrlValid: action.verified,
       });
-    case 'VERIFY_SUBDOMAIN_AND_DOC_URL':
+    case 'LEGACY_VERIFY_SUBDOMAIN_AND_DOC_URL':
       return Object.assign({}, state, {
         docUrlAndSubdomainMatch: action.verified,
       });
-    case 'SET_VERIFICATION_HASH':
+    case 'SET_LEGACY_VERIFICATION_HASH':
       return Object.assign({}, state, {
         verificationHash: action.hash,
       });
+    case 'RESET_LEGACY_FORM':
+      return initialState;
     default:
       return state
   }

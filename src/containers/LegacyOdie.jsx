@@ -9,6 +9,7 @@ import {
   setSubdomain,
   verifySubdomain,
   verifyDocUrl,
+  verifyLegacyOdie,
 } from '../redux/actions/legacyOdieActions';
 
 import LegacyOdieForm from '../components/LegacyOdieForm.jsx';
@@ -28,6 +29,7 @@ const mapDispatchToProps = dispatch =>  ({
     dispatch(setDocUrl(data));
     dispatch(verifyDocUrl(data));
   },
+  verifyLegacyOdie: () => dispatch(verifyLegacyOdie()),
 });
 
 export default compose(
