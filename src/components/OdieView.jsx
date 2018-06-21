@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { isLoaded, isEmpty, firebaseConnect } from 'react-redux-firebase';
+import { firebaseConnect } from 'react-redux-firebase';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import DocumentMeta from 'react-document-meta';
 import { CloudFunctionsUrl } from '../utilities/constants.js';
 import { setIsLoading, setIsLoaded } from '../redux/actions/loadingStatusActions'
 import { unescapeHtml } from '../utilities/validation';
+import { cleanGoogleRedirects } from '../utilities/cleanGoogleRedirects';
 
 const mapDispatchToProps = dispatch =>  ({
   setIsLoaded: () => dispatch(setIsLoaded()),
@@ -29,7 +30,6 @@ class OdieView extends Component {
 
     // Bind
     this.handleResponse = this.handleResponse.bind(this);
-    this.cleanGoogleRedirects = this.cleanGoogleRedirects.bind(this);
   }
 
   componentWillMount() {
@@ -56,7 +56,6 @@ class OdieView extends Component {
   }
 
   requestContent() {
-    const _this = this;
     const odie = this.currentOdie;
 
     this.setState({ isLoading: true })
@@ -76,7 +75,7 @@ class OdieView extends Component {
     const doc = new DOMParser().parseFromString(response.data, 'text/html');
     let contents = doc.getElementById('contents');
 
-    contents = this.cleanGoogleRedirects(contents);
+    contents = cleanGoogleRedirects(contents);
 
     this.setState({
       contents: contents.innerHTML
@@ -109,24 +108,6 @@ class OdieView extends Component {
         console.log(error.response.data);
       }
     });
-  }
-
-  cleanGoogleRedirects(html) {
-    const links = html.querySelectorAll('a');
-
-    Array.prototype.forEach.call(links, element => {
-      let href = element.href
-
-      let pathParts = href.split("https://www.google.com/url?q=");
-      href = pathParts[1];
-
-      pathParts = href.split('&sa=D&ust')
-      href = pathParts[0];
-      
-      element.href = href;
-    });
-
-    return html
   }
 
   render() {
