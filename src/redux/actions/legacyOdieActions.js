@@ -3,6 +3,8 @@ import { getFirebase } from 'react-redux-firebase';
 import * as Hash from 'object-hash';
 import { push } from 'connected-react-router'
 
+import { validateDocUrl } from '../../utilities/validation';
+
 export const setDocUrl = (docUrl) => {
   return {
     type: 'SET_LEGACY_DOC_URL',
@@ -76,45 +78,52 @@ export const verifyDocUrl = (docUrl) => {
       type: 'UNSET_LEGACY_ERROR',
     });
 
-    // Query firebase for a record a single record that matches the docUrl
-    firebase.database().ref('odies').orderByChild('docUrl').equalTo(docUrl).once('value')
-      .then( snapshot => {
+    if (validateDocUrl(docUrl)) {
+      // Query firebase for a record a single record that matches the docUrl
+      firebase.database().ref('odies').orderByChild('docUrl').equalTo(docUrl).once('value')
+        .then( snapshot => {
 
-        let verified = false;
+          let verified = false;
 
-        if (snapshot.exists() ) { // Check that a record was found
-          const odie = Object.values(snapshot.val())[0]; // Get the first and only one record
+          if (snapshot.exists() ) { // Check that a record was found
+            const odie = Object.values(snapshot.val())[0]; // Get the first and only one record
 
-          if(odie.uid === undefined) { // Check that record doesn't have a user assinged (UID)
-            verified = true;
-          } else {
-            // Dispatch error
-            dispatch({
-              type: 'SET_LEGACY_ERROR',
-              error: 'This Google Doc is already linked to an account',
-            });
+            if(odie.uid === undefined) { // Check that record doesn't have a user assinged (UID)
+              verified = true;
+            } else {
+              // Dispatch error
+              dispatch({
+                type: 'SET_LEGACY_ERROR',
+                error: 'This Google Doc is already linked to an account',
+              });
+            }
           }
-        }
 
-        // Set the verified value
-        dispatch({
-          type: 'SET_LEGACY_VERIFY_DOC_URL',
-          verified,
+          // Set the verified value
+          dispatch({
+            type: 'SET_LEGACY_VERIFY_DOC_URL',
+            verified,
+          });
+
+          if(verified) { // If it was verified
+            // Dispatch action to verify that domain and doc url match in the same odie
+            dispatch(verifySubdomainAndDocUrl());
+          }
+
+        })
+        .catch( error => {
+          console.log(error);
+          dispatch({
+            type: 'SET_LEGACY_ERROR',
+            error: 'An error happened. Please try again later',
+          });
         });
-
-        if(verified) { // If it was verified
-          // Dispatch action to verify that domain and doc url match in the same odie
-          dispatch(verifySubdomainAndDocUrl());
-        }
-
-      })
-      .catch( error => {
-        console.log(error);
-        dispatch({
-          type: 'SET_LEGACY_ERROR',
-          error: 'An error happened. Please try again later',
-        });
+    } else {
+      dispatch({
+        type: 'SET_LEGACY_ERROR',
+        error: 'This Google Doc url seems to be wrong',
       });
+    }
   }
 }
 
