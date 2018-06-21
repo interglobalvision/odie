@@ -1,5 +1,7 @@
 // This is our initial state
 const initialState = {
+  loading: false,
+  error: false,
   subdomain: '',
   subdomainValid: true,
   docUrl: '',
@@ -21,21 +23,37 @@ export const legacyOdieReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         subdomain: action.subdomain
       });
-    case 'LEGACY_VERIFY_SUBDOMAIN':
+    case 'SET_LEGACY_VERIFY_SUBDOMAIN':
       return Object.assign({}, state, {
         subdomainValid: action.verified,
       });
-    case 'LEGACY_VERIFY_DOC_URL':
+    case 'SET_LEGACY_VERIFY_DOC_URL':
       return Object.assign({}, state, {
         docUrlValid: action.verified,
       });
-    case 'LEGACY_VERIFY_SUBDOMAIN_AND_DOC_URL':
+    case 'SET_LEGACY_VERIFY_SUBDOMAIN_AND_DOC_URL':
       return Object.assign({}, state, {
         docUrlAndSubdomainMatch: action.verified,
       });
     case 'SET_LEGACY_VERIFICATION_HASH':
       return Object.assign({}, state, {
         verificationHash: action.hash,
+      });
+    case 'SET_LEGACY_LOADING':
+      return Object.assign({}, state, {
+        loading: true,
+      });
+    case 'UNSET_LEGACY_LOADING':
+      return Object.assign({}, state, {
+        loading: false,
+      });
+    case 'SET_LEGACY_ERROR':
+      return Object.assign({}, state, {
+        error: action.error || 'An error happened. Please try again later',
+      });
+    case 'UNSET_LEGACY_ERROR':
+      return Object.assign({}, state, {
+        error: false,
       });
     case 'RESET_LEGACY_FORM':
       return initialState;

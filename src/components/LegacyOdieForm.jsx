@@ -1,25 +1,15 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { firebaseConnect } from 'react-redux-firebase';
-import { ChromePicker } from 'react-color';
-
-import { escapeHtml, unescapeHtml } from '../utilities/validation';
 
 import AsciiOdie from './AsciiOdie'
 import DonationLink from './DonationLink'
 
 class LegacyOdieForm extends Component {
-
-  state =  {
-    isLoading: false,
-  }
-
-  constructor(props) {
-    super(props);
+  componentDidMount() {
+    this.subdomain.focus();
   }
 
   render() {
-    const { odie } = this.props;
+    const { legacyOdie } = this.props;
 
     return (
       <section className='grid-row'>
@@ -40,11 +30,11 @@ class LegacyOdieForm extends Component {
                 name='subdomain'
                 type='text'
                 placeholder='subdomain'
-                disabled={this.state.isLoading}
-                value={odie.subdomain}
+                disabled={legacyOdie.loading}
+                value={legacyOdie.subdomain}
                 onChange={ event => this.props.setSubdomain(event.target.value)}
                 ref={ ref => this.subdomain = ref}
-                className={'margin-bottom-micro input-valid-' + odie.subdomainValid}
+                className={'margin-bottom-micro input-valid-' + legacyOdie.subdomainValid}
               />
               <label htmlFor='subdomain' className='font-size-small u-inline-block'>
                 <div>The web address for your Odie</div>
@@ -58,10 +48,10 @@ class LegacyOdieForm extends Component {
                 name='docUrl'
                 type='text'
                 placeholder='google doc url'
-                disabled={this.state.isLoading}
-                value={odie.docUrl}
+                disabled={legacyOdie.loading}
+                value={legacyOdie.docUrl}
                 onChange={ event => this.props.setDocUrl(event.target.value)}
-                className={'margin-bottom-micro input-valid-' + odie.docUrlValid}
+                className={'margin-bottom-micro input-valid-' + legacyOdie.docUrlValid}
               />
               <label htmlFor='docUrl' className='font-size-small u-inline-block'>
                 <div className='margin-bottom-micro'>This is where we will pull the Odie content from</div>
@@ -77,12 +67,23 @@ class LegacyOdieForm extends Component {
           </div>
 
           <div className='grid-row margin-bottom-basic justify-end align-items-center'>
-            { !odie.docUrlAndSubdomainMatch ? <div className='grid-item font-size-small color-error'>Your subdomain and google doc url doesn't match any legacy odies.</div> : null }
+            { legacyOdie.error ? <div className='grid-item font-size-small color-error'>{legacyOdie.error}</div> : null }
           </div>
 
 
-          { odie.verificationHash && ! odie.verified ? <div className='grid-row margin-bottom-basic justify-end align-items-center'><div className='grid-item item-s-12 item-m-6 margin-bottom-micro'><span>copy/paste this code into your google doc and <i>verify</i></span></div><div className='grid-item item-s-12 item-m-6 margin-bottom-micro'><input type="text" disabled value={odie.verificationHash} /><span className="font-size-small">google docs can take up to 5 minutes to update</span></div></div> : null }
-          { odie.verificationHash ? <div className='grid-row margin-bottom-basic justify-end align-items-center'>
+          { legacyOdie.verificationHash && ! legacyOdie.verified ?
+          <div className='grid-row margin-bottom-basic justify-end align-items-center'>
+            <div className='grid-item item-s-12 item-m-6 margin-bottom-micro'>
+              <span>copy/paste this code into your google doc and <i>verify</i></span>
+            </div>
+            <div className='grid-item item-s-12 item-m-6 margin-bottom-micro'>
+              <input type="text" disabled value={legacyOdie.verificationHash} />
+              <span className="font-size-small">google docs can take up to 5 minutes to update</span>
+            </div>
+          </div> : null }
+
+          { legacyOdie.verificationHash ?
+          <div className='grid-row margin-bottom-basic justify-end align-items-center'>
             <div className='grid-item'>
               <button className='button-link-style font-size-large' onClick={ () => this.props.verifyLegacyOdie() }>Verify</button>
             </div>
