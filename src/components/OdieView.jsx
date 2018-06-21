@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { isLoaded, isEmpty, firebaseConnect } from 'react-redux-firebase';
+import { firebaseConnect } from 'react-redux-firebase';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import DocumentMeta from 'react-document-meta';
 import { CloudFunctionsUrl } from '../utilities/constants.js';
 import { setIsLoading, setIsLoaded } from '../redux/actions/loadingStatusActions'
 import { unescapeHtml } from '../utilities/validation';
+import { cleanGoogleRedirects } from '../utilities/cleanGoogleRedirects';
 
 const mapDispatchToProps = dispatch =>  ({
   setIsLoaded: () => dispatch(setIsLoaded()),
@@ -55,7 +56,6 @@ class OdieView extends Component {
   }
 
   requestContent() {
-    const _this = this;
     const odie = this.currentOdie;
 
     this.setState({ isLoading: true })
@@ -73,7 +73,9 @@ class OdieView extends Component {
 
   handleResponse(response) {
     const doc = new DOMParser().parseFromString(response.data, 'text/html');
-    const contents = doc.getElementById('contents');
+    let contents = doc.getElementById('contents');
+
+    contents = cleanGoogleRedirects(contents);
 
     this.setState({
       contents: contents.innerHTML
