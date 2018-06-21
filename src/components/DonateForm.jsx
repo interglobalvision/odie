@@ -1,12 +1,11 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {injectStripe, CardElement} from 'react-stripe-elements';
 import axios from 'axios';
-import queryString from 'query-string';
 import { firebaseConnect } from 'react-redux-firebase';
 import { OdiePhpApis } from '../utilities/constants.js';
 import { stripScripts } from '../utilities/validation.js';
 
-class DonateForm extends React.Component {
+class DonateForm extends Component {
   state = {
     amount: 25,
     isLoading: false,

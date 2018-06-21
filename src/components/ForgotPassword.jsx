@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { getFirebase } from 'react-redux-firebase';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import AsciiOdie from './AsciiOdie'
 import { validateEmail } from '../utilities/validation';
 

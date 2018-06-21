@@ -75,21 +75,31 @@ class OdieForm extends Component {
     title = escapeHtml(title);
     description = escapeHtml(description);
 
-    this.props.firebase
-      .push('odies', {
-        title,
-        subdomain,
-        docUrl,
-        description,
-        bgColor,
-        views: 0,
-        uid: this.props.currentUID,
+    if (subdomainValid && docUrlValid) {
+      this.setState({ isValid: true });
+
+      this.props.firebase
+        .push('odies', {
+          title,
+          subdomain,
+          docUrl,
+          description,
+          bgColor,
+          views: 0,
+          uid: this.props.currentUID,
+        })
+        .then(() => {
+          this.setState({ isLoading: false })
+          this.props.setIsLoaded();
+          this.props.history.push('/');
+        })
+    } else {
+      this.setState({
+        isLoading: false,
+        isValid: false,
       })
-      .then(() => {
-        this.setState({ isLoading: false })
-        this.props.setIsLoaded();
-        this.props.history.push('/');
-      })
+      this.props.setIsLoaded();
+    }
 
   }
 

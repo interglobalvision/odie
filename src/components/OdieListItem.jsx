@@ -33,12 +33,12 @@ const OdieListItem = ({ odie, firebase: { remove } }) => {
       <div className='grid-item item-s-4 item-m-3 item-xl-9-2 grid-row no-gutter'>
         <div className='grid-item item-s-6 item-m-auto'>
           <Link className='font-bold' to={'/edit/' + key} title='Edit'>
-            <img src='/img/icon-edit.png' className='icon' />
+            <img src='/img/icon-edit.png' alt='Edit Odie' className='icon' />
           </Link>
         </div>
         <div className='grid-item item-s-6 item-m-auto'>
           <a className='u-pointer' onClick={() => { if (window.confirm('Are you sure you want to erase this Odie?')) removeOdie(key) }} title='Erase'>
-            <img src='/img/icon-erase.png' className='icon' />
+            <img src='/img/icon-erase.png' alt='Remove Odie' className='icon' />
           </a>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { isLoaded, isEmpty } from 'react-redux-firebase';
+import { isEmpty } from 'react-redux-firebase';
 import { Link } from 'react-router-dom';
 
 import OdieListItem from './OdieListItem';

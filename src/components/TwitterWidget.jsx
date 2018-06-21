@@ -38,7 +38,6 @@ export default class TwitterWidget extends Component {
 
     if (!isLoading && tweet !== null) {
       const fromNow = moment(tweet.created_at).twitter();
-      const tweetUrl = tweet.entities.urls || [];
       const tweetMedia = tweet.entities.media || [];
 
       return (
@@ -51,7 +50,7 @@ export default class TwitterWidget extends Component {
             { tweetMedia.length
               ? <div id='tweet-media' className='margin-top-tiny'>
                   <a href={tweetMedia[0].media_url}>
-                    <img src={tweetMedia[0].media_url} className='twitter-media' />
+                    <img src={tweetMedia[0].media_url} alt={tweet.text} className='twitter-media' />
                   </a>
                 </div>
               : null
