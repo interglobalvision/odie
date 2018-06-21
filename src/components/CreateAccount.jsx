@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import { firebaseConnect } from 'react-redux-firebase';
-import { Link } from 'react-router-dom';
 import AsciiOdie from './AsciiOdie'
-import axios from 'axios';
 import { validateEmail, validatePassword } from '../utilities/validation';
-import { CloudFunctionsUrl } from '../utilities/constants.js';
 import { withRouter } from 'react-router-dom';
 
 export class CreateAccountForm extends Component {
@@ -31,9 +28,6 @@ export class CreateAccountForm extends Component {
 
   createUser() {
     const { email, password } = this.state;
-
-    // Create user function url
-    const createUserFunction = CloudFunctionsUrl + '/createUser';
 
     this.setState({ isLoading: true });
 

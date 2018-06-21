@@ -1,7 +1,6 @@
 // MyStoreCheckout.js
 import React, { Component } from 'react';
 import AsciiOdie from './AsciiOdie'
-import Loading from './Loading'
 import DonateForm from './DonateForm'
 import { StripeProvider } from 'react-stripe-elements';
 import { Elements } from 'react-stripe-elements';
