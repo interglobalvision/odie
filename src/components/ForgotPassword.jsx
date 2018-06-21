@@ -39,19 +39,23 @@ export class ForgotPasswordForm extends Component {
         this.props.history.push('/');
 
       }).catch(error => {
-
-        this.setState({
-          isLoading: false,
-          error: {
-            message: 'An error has occurred.'
-          }
-        })
-
         // Error handling
         if (error) {
+          let message = 'An error has occurred.';
+
+          if (error.message) {
+            message = error.message;
+          }
+
+          this.setState({
+            isLoading: false,
+            error: {
+              message,
+            }
+          })
+
           console.error(error);
         }
-
       });
 
     } else {
