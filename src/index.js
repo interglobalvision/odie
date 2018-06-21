@@ -25,11 +25,11 @@ const store = createStoreWithFirebase(
   ));
 
 ReactDOM.render(
-	<Provider store={store}>
+  <Provider store={store}>
     <ConnectedRouter history={history}>
-			<App />
-		</ConnectedRouter>
-	</Provider>
-	,
-	document.getElementById('root')
+      <App />
+    </ConnectedRouter>
+  </Provider>
+  ,
+  document.getElementById('root')
 );
