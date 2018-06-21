@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import NoMatch from '../components/NoMatch.jsx';
 import WelcomeHome from './WelcomeHome.jsx';
 import CreateAccount from './CreateAccount.jsx';
+import ForgotPassword from './ForgotPassword.jsx';
 import UserAccount from '../containers/UserAccount.jsx';
 import WelcomeHeader from './WelcomeHeader.jsx';
 import Footer from './Footer.jsx';
@@ -17,6 +18,7 @@ const Welcome = () => {
           <Switch>
             <Route exact path='/' component={WelcomeHome} />
             <Route path='/createaccount' render={() => <UserAccount Layout={CreateAccount} /> } />
+            <Route path='/forgotpassword' render={() => <UserAccount Layout={ForgotPassword} /> } />
             <Route component={NoMatch}/>
           </Switch>
         </div>
