@@ -1,13 +1,13 @@
 /* global confirm */
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { withFirebase } from 'react-redux-firebase';
+import { getFirebase } from 'react-redux-firebase';
 import { unescapeHtml } from '../utilities/validation';
 
-const OdieListItem = ({ odie, firebase: { remove } }) => {
+const OdieListSubItem = ({ odie }) => {
   const { key } = odie;
-  const { title, subdomain, views } = odie.value;
-  const paths = odie.value.paths || {};
+  const { title, subdomain, path, views } = odie;
+  const { remove } = getFirebase;
 
   const removeOdie = (key) => {
 
@@ -22,8 +22,8 @@ const OdieListItem = ({ odie, firebase: { remove } }) => {
 
   return(
     <div className='list-rows-item grid-item item-s-12 no-gutter grid-row padding-top-small align-items-center'>
-      <div className='grid-item item-s-8 item-m-4 item-xl-9-4'>
-        <a className="link-underline" href={window.location.protocol + '//' + subdomain + '.' + window.location.host} target="_blank">{subdomain}</a>
+      <div className='grid-item item-s-4 offset-s-4 item-m-2 offset-m-2 item-xl-9-2 offset-xl-9-2'>
+        <span>/ </span><a className="link-underline" href={window.location.protocol + '//' + subdomain + '.' + window.location.host + '/' + path} target="_blank">{path}</a>
       </div>
       <div className='grid-item hide-mobile item-m-3 item-xl-9-2'>
         {unescapeHtml(title)}
@@ -42,14 +42,9 @@ const OdieListItem = ({ odie, firebase: { remove } }) => {
             <img src='/img/icon-erase.png' alt='Remove Odie' className='icon' />
           </a>
         </div>
-        <div className='grid-item item-s-4 item-m-auto'>
-          <Link className='font-bold' to={'/create/' + key} title='Add sub-Odie'>
-            <img src='/img/icon-add-sub.png' alt='Add sub-Odie' className='icon' />
-          </Link>
-        </div>
       </div>
     </div>
   );
 }
 
-export default withFirebase(OdieListItem);
+export default OdieListSubItem;

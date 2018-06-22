@@ -27,6 +27,8 @@ class OdieForm extends Component {
     subdomainValid: true,
     docUrl: '',
     docUrlValid: true,
+    path: '',
+    pathValid: '',
     description: '',
     displayColorPicker: false,
     bgColor: '',
