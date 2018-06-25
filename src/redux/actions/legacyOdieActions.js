@@ -3,7 +3,7 @@ import { getFirebase } from 'react-redux-firebase';
 import * as Hash from 'object-hash';
 import { push } from 'connected-react-router'
 
-import { validateDocUrl } from '../../utilities/validation';
+import { validateDocUrl, validateSubdomain } from '../../utilities/validation';
 
 export const setDocUrl = (docUrl) => {
   return {
@@ -19,7 +19,12 @@ export const setSubdomain = (subdomain) => {
   }
 }
 
-export const verifySubdomain = (subdomain) => {
+/**
+* [Redux Action] Verifies that a subdomain is assigned to an existing legacy odie (Legacy means it is
+* an odie without an assigned user)
+* @param {string} subdomain - The subdomain to be verified
+*/
+export const verifyLegacySubdomainExists = (subdomain) => {
   return dispatch => {
     const firebase = getFirebase();
 
@@ -28,48 +33,60 @@ export const verifySubdomain = (subdomain) => {
       type: 'UNSET_LEGACY_ERROR',
     });
 
-    // Query firebase for a record a single record that matches the subdomain
-    firebase.database().ref('odies').orderByChild('subdomain').equalTo(subdomain).limitToFirst(1).once('value')
-      .then( snapshot => {
+    if (validateSubdomain(subdomain)) {
+      // Query firebase for a record a single record that matches the subdomain
+      firebase.database().ref('odies').orderByChild('subdomain').equalTo(subdomain).limitToFirst(1).once('value')
+        .then( snapshot => {
 
-        let verified = false;
+          let verified = false;
 
-        if (snapshot.exists() ) { // Check that a record was found
-          const odie = Object.values(snapshot.val())[0]; // Get the first and only one record
+          if (snapshot.exists() ) { // Check that a record was found
+            const odie = Object.values(snapshot.val())[0]; // Get the first and only one record
 
-          if(odie.uid === undefined) { // Check that record doesn't have a user assinged (UID)
-            verified = true;
-          } else {
-            // Dispatch error
-            dispatch({
-              type: 'SET_LEGACY_ERROR',
-              error: 'This subdomain is already linked to an account',
-            });
+            if(odie.uid === undefined) { // Check that record doesn't have a user assinged (UID)
+              verified = true;
+            } else {
+              // Dispatch error
+              dispatch({
+                type: 'SET_LEGACY_ERROR',
+                error: 'This subdomain is already linked to an account',
+              });
+            }
           }
-        }
 
-        // Set the verified value
-        dispatch({
-          type: 'SET_LEGACY_VERIFY_SUBDOMAIN',
-          verified,
+          // Set the verified value
+          dispatch({
+            type: 'SET_LEGACY_VERIFY_SUBDOMAIN',
+            verified,
+          });
+
+          if(verified) { // If it was verified
+            // Dispatch action to verify that domain and doc url match in the same odie
+            dispatch(verifySubdomainAndDocUrlMatch());
+          }
+
+        })
+        .catch( error => {
+          console.log(error);
+          dispatch({
+            type: 'SET_LEGACY_ERROR',
+          });
         });
-
-        if(verified) { // If it was verified
-          // Dispatch action to verify that domain and doc url match in the same odie
-          dispatch(verifySubdomainAndDocUrl());
-        }
-
-      })
-      .catch( error => {
-        console.log(error);
-        dispatch({
-          type: 'SET_LEGACY_ERROR',
-        });
+    } else {
+      dispatch({
+        type: 'SET_LEGACY_ERROR',
+        error: 'This Subdomain seems to be wrong',
       });
+    }
   }
 }
 
-export const verifyDocUrl = (docUrl) => {
+/**
+* [Redux Action] Verifies that a Google Doc URL is assigned to an existing legacy odie (Legacy means it is
+* an odie without an assigned user)
+* @param {string} docUrl - The Google Doc URL
+*/
+export const verifyLegacyDocUrlExists = (docUrl) => {
   return dispatch => {
     const firebase = getFirebase();
 
@@ -107,7 +124,7 @@ export const verifyDocUrl = (docUrl) => {
 
           if(verified) { // If it was verified
             // Dispatch action to verify that domain and doc url match in the same odie
-            dispatch(verifySubdomainAndDocUrl());
+            dispatch(verifySubdomainAndDocUrlMatch());
           }
 
         })
@@ -127,9 +144,14 @@ export const verifyDocUrl = (docUrl) => {
   }
 }
 
-export const verifySubdomainAndDocUrl = () => {
+/**
+* [Redux Action] Verifies that a subdomain and Google Doc URL match the same legacy odie
+* an odie without an assigned user)
+*/
+export const verifySubdomainAndDocUrlMatch = () => {
   return (dispatch, getState) => {
     const firebase = getFirebase();
+    // Get subdomain and docUrl from the redux store
     const { subdomain, docUrl } = getState().legacyOdie;
 
     // Clean error message
@@ -183,11 +205,19 @@ export const verifySubdomainAndDocUrl = () => {
   }
 }
 
+/**
+* [Redux Action] Verifies the ownsership of odie by checking a verification code inside
+* the Google Doc
+*/
 export const verifyLegacyOdie = () => {
   return (dispatch, getState) => {
-    const { subdomain, docUrl, verificationHash } = getState().legacyOdie;
-    const { uid } = getState().firebase.auth;
     const firebase = getFirebase();
+
+    // Get subdomain, docUrl and verificationHash from the redux store
+    const { subdomain, docUrl, verificationHash } = getState().legacyOdie;
+
+    // Get current user UID from the redu store
+    const { uid } = getState().firebase.auth;
 
     // Clean error message
     dispatch({

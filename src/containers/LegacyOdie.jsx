@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import {
   setDocUrl,
   setSubdomain,
-  verifySubdomain,
-  verifyDocUrl,
+  verifyLegacySubdomainExists,
+  verifyLegacyDocUrlExists,
   verifyLegacyOdie,
 } from '../redux/actions/legacyOdieActions';
 
@@ -20,11 +20,11 @@ const mapStateToProps = state =>  {
 const mapDispatchToProps = dispatch =>  ({
   setSubdomain: data => {
     dispatch(setSubdomain(data));
-    dispatch(verifySubdomain(data));
+    dispatch(verifyLegacySubdomainExists(data));
   },
   setDocUrl: data => {
     dispatch(setDocUrl(data));
-    dispatch(verifyDocUrl(data));
+    dispatch(verifyLegacyDocUrlExists(data));
   },
   verifyLegacyOdie: () => dispatch(verifyLegacyOdie()),
 });
